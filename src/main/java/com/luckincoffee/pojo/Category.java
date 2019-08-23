@@ -7,13 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * @ProjectName: mall
- * @Package: com.luckincoffee.pojo
- * @ClassName: Category
  * @Author: dyz
  * @Description: 商品种类实体类
  * @Date: 2019/8/19 17:30
- * @Version: 1.0
  */
 @Entity
 @Table(name = "category")
