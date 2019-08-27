@@ -10,8 +10,10 @@
                 //vue用到的数据
                 var data4Vue={
                     uri:'categories',  //通过访问的地址去获取数据，与CategoryController相对应
-                    beans:[]
-                };
+                    beans:[],
+                    bean:{id : 0,name:''},  //分类信息
+                    file:null               //上传的文件（图片）
+            };
                 //创建Vue对象
                 var vue=new Vue({
                     el: '#workingArea', //与对应的元素绑定

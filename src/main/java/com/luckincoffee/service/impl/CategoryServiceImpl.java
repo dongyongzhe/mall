@@ -1,10 +1,10 @@
 package com.luckincoffee.service.impl;
 
-import com.luckincoffee.dao.CategoryDao;
+import com.luckincoffee.mapper.CategoryMapper;
 import com.luckincoffee.pojo.Category;
 import com.luckincoffee.service.CategoryService;
+import com.luckincoffee.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +17,19 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
-    private CategoryDao categoryDao;
-
+    private CategoryMapper categoryMapper;
     /**
      * 根据 id 进行降序排序
      * @return 分类对象的集合
      */
     @Override
-    public List<Category> list() {
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
-        return categoryDao.findAll(sort);
+    public List<Category> list(Page page) {
+        return categoryMapper.list(page);
+
     }
+    @Override
+    public int total() {
+        return categoryMapper.total();
+    }
+
 }
