@@ -83,22 +83,22 @@
 	}
     //跳转函数
     function jump(page,vue){
-		if('first'== page && !vue.pagination.first)
-			vue.list(0);
+		if('first'== page && !vue.pagination.isFirstPage)
+			vue.find(1);
 		
-		else if('pre'== page &&	vue.pagination.hasPrevious )
-			vue.list(vue.pagination.number-1);
+		else if('pre'== page &&	vue.pagination.hasPreviousPage )
+			vue.find(vue.pagination.prePage);
 		
-		else if('next'== page && vue.pagination.hasNext)
-			vue.list(vue.pagination.number+1);					
+		else if('next'== page && vue.pagination.hasNextPage)
+			vue.find(vue.pagination.nextPage);
 		
-		else if('last'== page && !vue.pagination.last)
-			vue.list(vue.pagination.totalPages-1);    	
+		else if('last'== page && !vue.pagination.isLastPage)
+			vue.find(vue.pagination.navigateLastPage);
     }
     //跳转函数
     function jumpByNumber(start,vue){
-    	if(start!=vue.pagination.number)
-			vue.list(start);       	
+    	if(start!=vue.pagination.PageNum)
+			vue.find(start);
     }
 	</script>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 	

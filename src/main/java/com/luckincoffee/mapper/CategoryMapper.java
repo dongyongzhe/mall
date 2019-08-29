@@ -1,8 +1,8 @@
 package com.luckincoffee.mapper;
 
 import com.luckincoffee.pojo.Category;
-import com.luckincoffee.util.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -18,6 +18,6 @@ public interface CategoryMapper {
      * 查询所有分类
      * @return 所有分类集合
      */
-    List<Category> list(Page page);
-    int total();
+    @Select("SELECT * FROM category ORDER BY id DESC")
+    List<Category> findAll();
 }

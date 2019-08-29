@@ -1,6 +1,7 @@
 package com.luckincoffee.mapper;
 
 import com.luckincoffee.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  * @Date: 2019/8/27 13:50
  * @Description: 用户CRUD
  */
+@Mapper
 public interface UserMapper {
     /**
      * 根据唯一主键id进行删除操作

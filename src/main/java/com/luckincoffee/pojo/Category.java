@@ -3,6 +3,8 @@ package com.luckincoffee.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * @Author: dyz
  * @Description: 商品种类实体类
@@ -20,4 +22,13 @@ public class Category {
      * 分类名称
      */
     private String name;
+    /**
+     * 产品
+     */
+    private List<Product> products;
+    /**
+     * 同一类产品不同的推荐关键词
+     */
+    List<List<Product>> productsByRow;
+
 }

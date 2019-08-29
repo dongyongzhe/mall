@@ -1,7 +1,6 @@
 package com.luckincoffee.service;
 
 import com.luckincoffee.pojo.Category;
-import com.luckincoffee.util.Page;
 
 import java.util.List;
 
@@ -11,6 +10,5 @@ import java.util.List;
  * @Date: 2019/8/22 17:31
  */
 public interface CategoryService {
-    List<Category> list(Page page);
-    int total();
+    List<Category> list();
 }

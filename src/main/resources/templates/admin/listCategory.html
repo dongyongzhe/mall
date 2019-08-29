@@ -10,9 +10,8 @@
                 //vue用到的数据
                 var data4Vue={
                     uri:'categories',  //通过访问的地址去获取数据，与CategoryController相对应
-                    beans:[],
-                    bean:{id : 0,name:''},  //分类信息
-                    file:null               //上传的文件（图片）
+                    pagination:{},
+                    beans: []
             };
                 //创建Vue对象
                 var vue=new Vue({
@@ -20,15 +19,22 @@
                     data: data4Vue,
                     //成功加载Vue对象,调用list方法
                     mounted:function () {
-                        this.list();
+                        this.find(1);
                     },
                     methods:{
-                        list:function () {
-                            var url=this.uri;
+                        find:function (start) {
+                            var url=this.uri+ "?start="+start;
                             //异步调用ajax库axios.js,成功之后将服务端返回的数据保存在vue.beans对象上
                             axios.get(url).then(function (response) {
-                                vue.beans=response.data;
+                                vue.pagination= response.data;
+                                vue.beans=response.data.list;
                             });
+                        },
+                        jump: function (page) {
+                            jump(page,vue);//定义在adminHeader.html中
+                        },
+                        jumpByNumber: function (start) {
+                            jumpByNumber(start,vue);
                         }
                     }
                     });
@@ -85,6 +91,7 @@
                     </tbody>
                 </table>
             </div>
+            <div th:replace="include/admin/adminPage::html"></div>
         </div>
         <div th:replace="include/admin/adminFooter::html"></div>
     </body>
