@@ -1,0 +1,48 @@
+<div th:fragment="html">
+    <script>
+        $(function () {
+            var data4Vue={
+                uri:'forehome',
+                categories: []
+            };
+            //ViewModel
+            var vue=new Vue({
+                el: '#workingArea',
+                data :data4Vue,
+                // Vue对象加载成功
+                mounted:function () {
+                    linkDefaultActions();
+                    this.load();
+                },
+                methods:{
+                   load:function () {
+                      var uri=this.uri;
+                      axios.get(url).then(function (response) {
+                          vue.categories=response.data;
+                          vue.$nextTick(function () {
+                              // 渲染结束以后进行监听
+                              homePageRegisterListeners();
+                          })
+                      });
+                   } 
+                },
+                filters:{
+                    subTitleFilters:function (value) {
+                        // 如果为空，返回空的字符串
+                        if (!value)return '';
+                        //根据空格拆分成数组，并返回数组第一个元素
+                        return value.split(" ")[0];
+                    }
+                }
+            });
+
+        });
+    </script>
+    <title>墨墨书城</title>
+    <div class="homepageDiv">
+        <!--分类页和轮播页面-->
+        <div th:replace="include/fore/home/categoryAndcarousel::html"></div>
+        <!--总体分类页面-->
+        <div th:replace="include/fore/home/homepageCategoryProducts::html"></div>
+    </div>
+</div>

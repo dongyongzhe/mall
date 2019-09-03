@@ -1,0 +1,37 @@
+<!--导航栏，根据用户是否登录显示不同的内容-->
+<nav class="top" th:fragment="html">
+    <a th:href="${application.contextPath}}">
+        <!--引入bootstrap组件库home图标-->
+        <span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-home redColor"></span>
+            墨墨首页
+    </a>
+    <span>hi~欢迎来到墨墨书城</span>
+
+    <!--会员已登录-->
+    <span th:if="${null!=session.user}}">
+        <!--TODO 点击会员名跳转到会员信息-->
+        <!--登录位置显示会员名称-->
+        <a href="login" th:text="${session.user.name}}"></a>
+        <!--推出登录-->
+        <a href="forelogout">退出</a>
+    </span>
+
+    <!--会员尚未登录-->
+    <span th:if="${null=session.user}}">
+        <!--点击请登录跳转到登录页面-->
+        <a href="login">请登录</a>
+        <!--推出登录-->
+        <a href="register">免费注册</a>
+    </span>
+
+    <!--会员已登录-->
+    <span clas="pull-right">
+        <a href="bought">我的订单</a>
+        <a href="cart">
+            <!--引入bootstrap组件库购物车图标-->
+            <span style="color: #C40000;margin: 0px" class="lyphicon glyphicon-shopping-cart redColor"></span>
+            <!--获取购物车中商品数-->
+            购物车<strong th:text="session.cartTotalItemNumber"></strong>件</a>
+    </span>
+
+</nav>

@@ -6,4 +6,13 @@ package com.luckincoffee.pojo;
  * @Description: 商品类
  */
 public class Product {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    private Category category;
 }

@@ -1,0 +1,13 @@
+<div class th:fragment="html">
+    <a th:href="${application.contextPath}}">
+        <img id="logo" src="/img/site/logo.png" class="logo">
+    </a>
+    <form action="search" method="get">
+        <div class="searchDiv">
+            <!--输入字段预期值-->
+            <input name="keyword" type="text" placeholder="三体">
+            <button type="submit" class="searchButton">搜索</button>
+            <!--TODO 搜素下的分类选做-->
+        </div>
+    </form>
+</div>
