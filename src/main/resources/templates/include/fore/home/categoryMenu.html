@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<!--左侧分类导航菜单-->
+<div th:fragment="html">
+    <div class="categoryMenu">
+        <div :cid="c.id" class="eachCategory" v-for="c in categories">
+            <span class="glyphicon glyphicon-link"></span>
+            <a :href="'category?id='+c.id">
+                {{c.name}}}
+            </a>
+        </div>
+    </div>
+</div>

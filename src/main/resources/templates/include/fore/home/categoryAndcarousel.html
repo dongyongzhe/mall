@@ -1,6 +1,24 @@
 <div th:fragment="html">
     <div class="categoryWithCarousel">
-
+        <div class="headbar show1">
+            <div class="head">
+                <span style="margin-left: 10px" class="glyphicon glyphicon-th-list"></span>
+                <span style="margin-left: 10px">分类</span>
+            </div>
+            <!--TODO-->
+        </div>
+        </div>
+        <!--绝对定位,左侧竖状的分类菜单-->
+        <div style="position: relative">
+            <div th:replace="include/fore/categoryMenu::html"></div>
+        </div>
+        <!--商品推荐-->
+        <div style="position: relative;left: 0;top: 0;">
+            <div th:replace="include/fore/productsAsideCategorys::html"></div>
+        </div>
+        <!--轮播图片-->
+        <div th:replace="include/fore/carousel::html"></div>
+        <div class="carouselBackgroundDiv">
+        </div>
     </div>
-
 </div>

@@ -19,4 +19,12 @@ public class ForePageController {
         return "fore/home";
     }
 
+    /**
+     * 跳转到注册页面
+     */
+    @GetMapping(value = "register")
+    public String register(){
+        return "fore/register";
+    }
+
 }
