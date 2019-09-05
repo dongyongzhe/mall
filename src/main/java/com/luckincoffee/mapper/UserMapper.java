@@ -29,4 +29,7 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user ORDER BY id DESC")
     List<User> list();
+
+    @Select("SELECT * FROM user WHERE name=#{}")
+    User findByName(String name);
 }

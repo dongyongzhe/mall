@@ -1,3 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>测测测测测测试</title>
+</head>
+<body>
+<script src="js/jquery/2.0.0/jquery.min.js"></script>
+<link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<script src="js/vue/2.5.16/vue.min.js"></script>
+<script src="js/axios/0.17.1/axios.min.js"></script>
+<!--日期进行格式化-->
+<script src="js/moment/2.22.2/moment.js"></script>
+<!--自定义前台页面样式-->
+<link href="css/fore/style.css" rel="stylesheet">
 <!--注册主体页面-->
 <div th:fragment="html">
     <script>
@@ -16,13 +33,13 @@
                 },
                 methods:{
                     register:function () {
-                       var url=this.uri;
-                       if (0==this.user.name.length) {
-                           $("span.errorMassage").html("请输入用户名");
-                           $("div.registerErrorMessageDiv").css("visibility","visible")
-                           return;
-                       }
-                       if (0==this.user.password.length) {
+                        var url=this.uri;
+                        if (0==this.user.name.length) {
+                            $("span.errorMassage").html("请输入用户名");
+                            $("div.registerErrorMessageDiv").css("visibility","visible")
+                            return;
+                        }
+                        if (0==this.user.password.length) {
                             $("span.errorMassage").html("请输入密码");
                             $("div.registerErrorMessageDiv").css("visibility","visible")
                             return;
@@ -90,3 +107,5 @@
 
     </div>
 </div>
+</body>
+</html>

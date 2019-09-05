@@ -37,8 +37,19 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /**
+     * 获取所有会员集合
+     */
     @Override
     public List<User> list() {
         return userMapper.list();
+    }
+
+    /**
+     * 根据会员名判断数据库中是否已经存在该会员名称
+     */
+    @Override
+    public boolean isExist(String name) {
+        return true;
     }
 }

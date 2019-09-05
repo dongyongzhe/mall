@@ -15,4 +15,5 @@ public interface UserService {
     void updateUser(User c);
     User getUser(int id);
     List<User> list();
+    boolean isExist(String name);
 }
