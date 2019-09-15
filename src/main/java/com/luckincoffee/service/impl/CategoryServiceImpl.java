@@ -34,35 +34,35 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.findOne(id);
     }
 
-    /**
-     * 遍历所有类别，执行removeCategoryFromProduct方法
-     */
-    @Override
-    public void removeCategoryFromProduct(List<Category> c) {
-        for (Category category : c) {
-            removeCategoryFromProduct(category);
-        }
-    }
+//    /**
+//     * 遍历所有类别，执行removeCategoryFromProduct方法
+//     */
+//    @Override
+//    public void removeCategoryFromProduct(List<Category> c) {
+//        for (Category category : c) {
+//            removeCategoryFromProduct(category);
+//        }
+//    }
 
-    /**
-     * 移除各类所有产品的 类别字段
-     */
-    @Override
-    public void removeCategoryFromProduct(Category category) {
-        List<Product> products = category.getProducts();
-        if (null!=products){
-            for (Product product : products) {
-                product.setCategory(null);
-            }
-        }
-        List<List<Product>> productsByRow = category.getProductsByRow();
-        if (null!=productsByRow){
-            for (List<Product> productList : productsByRow) {
-                for (Product product : productList) {
-                    product.setCategory(null);
-                }
-            }
-        }
-    }
+//    /**
+//     * 移除各类所有产品的 类别字段
+//     */
+//    @Override
+//    public void removeCategoryFromProduct(Category category) {
+//        List<Product> products = category.getProducts();
+//        if (null!=products){
+//            for (Product product : products) {
+//                product.setCategory(null);
+//            }
+//        }
+//        List<List<Product>> productsByRow = category.getProductsByRow();
+//        if (null!=productsByRow){
+//            for (List<Product> productList : productsByRow) {
+//                for (Product product : productList) {
+//                    product.setCategory(null);
+//                }
+//            }
+//        }
+//    }
 }
 

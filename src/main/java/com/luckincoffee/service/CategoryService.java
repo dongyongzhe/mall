@@ -13,6 +13,6 @@ public interface CategoryService {
     List<Category> list();
     void add(Category category);
     Category get(int id);
-    void removeCategoryFromProduct(List<Category> category);
-    void removeCategoryFromProduct(Category category);
+//    void removeCategoryFromProduct(List<Category> category);
+//    void removeCategoryFromProduct(Category category);
 }

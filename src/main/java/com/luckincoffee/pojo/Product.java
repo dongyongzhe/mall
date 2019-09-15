@@ -1,18 +1,150 @@
 package com.luckincoffee.pojo;
 
+import java.sql.Date;
+
 /**
- * @Author: dyz
- * @Date: 2019/8/28 15:48
- * @Description: 商品类
+ * @Author: yongzhe.dong@luckincoffee.com
+ * @Date: 2019/9/11 15:31
+ * @Description: 商品实体类
  */
 public class Product {
-    public Category getCategory() {
-        return category;
+    private int id;
+    private String name;
+    private String title;
+    private String productDesc;
+    private String author;
+    private String publisher;
+    private Date years;
+    private Float originalPrice;
+    private Float promatePrice;
+    private int stock;
+    private int categoryId;
+    private Byte status;
+    /**
+     * 是否为推荐图书   0：不是,1：是
+     */
+    private Byte recommend;
+
+    public Byte getRecommend() {
+        return recommend;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setRecommend(Byte recommend) {
+        this.recommend = recommend;
     }
 
-    private Category category;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public Date getYears() {
+        return years;
+    }
+
+    public void setYears(Date years) {
+        this.years = years;
+    }
+
+    public Float getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(Float originalPrice) {
+        originalPrice = originalPrice;
+    }
+
+    public Float getPromatePrice() {
+        return promatePrice;
+    }
+
+    public void setPromatePrice(Float promatePrice) {
+        promatePrice = promatePrice;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", productDesc='" + productDesc + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", years=" + years +
+                ", originalPrice=" + originalPrice +
+                ", promatePrice=" + promatePrice +
+                ", stock=" + stock +
+                ", categoryId=" + categoryId +
+                ", status=" + status +
+                ", recommend=" + recommend +
+                '}';
+    }
 }

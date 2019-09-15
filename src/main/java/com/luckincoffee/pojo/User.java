@@ -1,23 +1,45 @@
 package com.luckincoffee.pojo;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * @Author: dyz
- * @Description: 会员
- * @Date: 2019/8/22 9:10
+ * @Description: 成员管理
+ * @Date: 2019/9/11 9:10
  */
-@Setter
-@Getter
-@ToString(exclude = {"password","salt"})
 public class User {
     private int id;
-    private String name;
+    private String username;
     private String password;
-    /**
-     * 加盐
-     */
-    private String salt;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

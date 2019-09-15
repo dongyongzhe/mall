@@ -1,13 +1,12 @@
-<!--注册页面同样包含head，top等页面-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="include/fore/head::html"></head>
+<head th:include="include/fore/header::html" ></head>
 <body>
-    <div id="workingArea">
-        <div th:replace="include/fore/top::html"></div>
-        <div th:replace="include/fore/simplrSearch::html"></div>
-        <div th:replace="include/fore/register::html"></div>
-        <div th:replace="include/fore/footer::html"></div>
-    </div>
+<div id="workingArea">
+    <div th:replace="include/fore/top::html" ></div>
+    <div th:replace="include/fore/simpleSearch::html" ></div>
+    <div th:replace="include/fore/registerPage::html" ></div>
+    <div th:replace="include/fore/footer::html" ></div>
+</div>
 </body>
 </html>
