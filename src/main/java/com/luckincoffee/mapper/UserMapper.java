@@ -1,6 +1,7 @@
 package com.luckincoffee.mapper;
 
 import com.luckincoffee.pojo.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -22,14 +23,27 @@ public interface UserMapper {
 
     /**
      * 插入新的用户
-     * @param record 用户对象
+     * @param user 用户对象
      * @return 改变的行数
      */
-    int insert(User record);
+    @Insert("INSERT INTO t_member(name,password) VALUES(#{username},#{password})")
+    int insert(User user);
 
-    @Select("SELECT * FROM user ORDER BY id DESC")
+    /**
+     * id递减的顺序得到所有的会员集合
+     */
+    @Select("SELECT * FROM t_member ORDER BY id DESC")
     List<User> list();
 
-    @Select("SELECT * FROM user WHERE name=#{}")
+    /**
+     * 根据姓名查找用户对象
+     */
+    @Select("SELECT * FROM t_member WHERE name=#{name}")
     User findByName(String name);
+
+    /**
+     * 根据用户名和密码查找用户，和登录页面传来的数据一一对应
+     */
+    @Select("SELECT * FROM t_member WHERE username=#{username} AND password=#{password}")
+    User findByUsernameAndPassword(String username,String passsword);
 }

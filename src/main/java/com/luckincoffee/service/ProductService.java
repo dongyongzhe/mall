@@ -11,8 +11,4 @@ import java.util.List;
  * @Description: 商品业务逻辑接口
  */
 public interface ProductService {
-    void fill(Category category);
-    void fill(List<Category> categories);
-    void fillByRow(List<Category> categories);
-    List<Product> listByCategory(Category category);
 }

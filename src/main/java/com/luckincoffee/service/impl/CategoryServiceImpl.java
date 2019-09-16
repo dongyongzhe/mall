@@ -15,7 +15,7 @@ import java.util.List;
  * @Date: 2019/8/23 8:56
  */
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void add(Category category){
+    public void add(Category category) {
         categoryMapper.save(category);
     }
 
@@ -34,35 +34,14 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.findOne(id);
     }
 
-//    /**
-//     * 遍历所有类别，执行removeCategoryFromProduct方法
-//     */
-//    @Override
-//    public void removeCategoryFromProduct(List<Category> c) {
-//        for (Category category : c) {
-//            removeCategoryFromProduct(category);
-//        }
-//    }
-
-//    /**
-//     * 移除各类所有产品的 类别字段
-//     */
-//    @Override
-//    public void removeCategoryFromProduct(Category category) {
-//        List<Product> products = category.getProducts();
-//        if (null!=products){
-//            for (Product product : products) {
-//                product.setCategory(null);
-//            }
-//        }
-//        List<List<Product>> productsByRow = category.getProductsByRow();
-//        if (null!=productsByRow){
-//            for (List<Product> productList : productsByRow) {
-//                for (Product product : productList) {
-//                    product.setCategory(null);
-//                }
-//            }
-//        }
-//    }
+    /**
+     * 获取到某一分类下的所有产品集合
+     */
+    @Override
+    public List<Product> findByCategory(Category category) {
+        int categoryId=category.getId();
+        return categoryMapper.findByCategoryId(categoryId);
+    }
 }
+
 

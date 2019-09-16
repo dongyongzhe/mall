@@ -21,10 +21,11 @@ public class Category {
      * 每一类对应的所有产品
      */
     private List<Product> products;
+
     /**
-     * 每一种类别推荐的产品
+     * 每一种类别推荐的产品列表，前台会显示这些商品的小标题
      */
-    List<List<Product>> productsByRow;
+    List<List<Product>> recommendProduct;
 
     public Integer getId() {
         return id;
@@ -50,12 +51,12 @@ public class Category {
         this.products = products;
     }
 
-    public List<List<Product>> getProductsByRow() {
-        return productsByRow;
+    public List<List<Product>> getRecommendProduct() {
+        return recommendProduct;
     }
 
-    public void setProductsByRow(List<List<Product>> productsByRow) {
-        this.productsByRow = productsByRow;
+    public void setRecommendProduct(List<List<Product>> recommendProduct) {
+        this.recommendProduct = recommendProduct;
     }
 
     @Override

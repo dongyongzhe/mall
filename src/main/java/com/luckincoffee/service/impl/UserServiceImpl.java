@@ -46,10 +46,15 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 根据会员名判断数据库中是否已经存在该会员名称
+     * 根据会员名判断数据库中是否已经存在该成员
      */
     @Override
     public boolean isExist(String name) {
-        return true;
+        return (userMapper.findByName(name))==null?false:true;
+    }
+
+    @Override
+    public User findByUsernameAndPassword(String username, String password) {
+        return userMapper.findByUsernameAndPassword(username,password);
     }
 }

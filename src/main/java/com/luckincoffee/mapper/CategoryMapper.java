@@ -18,7 +18,7 @@ public interface CategoryMapper {
      * 查询所有分类
      * @return 所有分类集合
      */
-    @Select("SELECT * FROM category ORDER BY id DESC")
+    @Select("SELECT * FROM t_category ORDER BY id DESC")
     List<Category> findAll();
 
     /**
@@ -34,5 +34,6 @@ public interface CategoryMapper {
     /**
      * 根据分类获取该分类下的所有商品
      */
-    List<Product> findByCategoryOrderById(Category category);
+    @Select("SELECT * FROM t_product WHERE category_id=#{categoryId}")
+    List<Product> findByCategoryId(int categoryId);
 }
