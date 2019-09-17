@@ -1,6 +1,7 @@
 package com.luckincoffee.pojo;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * @Author: yongzhe.dong@luckincoffee.com
@@ -18,12 +19,47 @@ public class Product {
     private Float originalPrice;
     private Float promatePrice;
     private int stock;
+
+    /**
+     * 销量
+     */
+    private int saleCount;
+    /**
+     * 评论数量
+     */
+    private int reviewCount;
     private int categoryId;
     private Byte status;
     /**
      * 是否为推荐图书   0：不是,1：是
      */
     private Byte recommend;
+
+    /**
+     * 展示图片集合
+     */
+    private List<Picture> showPictures;
+    /**
+     * 详情图片集合
+     */
+    private List<Picture> detailPictures;
+
+
+    public List<Picture> getShowPictures() {
+        return showPictures;
+    }
+
+    public void setShowPictures(List<Picture> showPictures) {
+        this.showPictures = showPictures;
+    }
+
+    public List<Picture> getDetailPictures() {
+        return detailPictures;
+    }
+
+    public void setDetailPictures(List<Picture> detailPictures) {
+        this.detailPictures = detailPictures;
+    }
 
     public Byte getRecommend() {
         return recommend;
@@ -111,6 +147,22 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public int getSaleCount() {
+        return saleCount;
+    }
+
+    public void setSaleCount(int saleCount) {
+        this.saleCount = saleCount;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
     public int getCategoryId() {

@@ -3,6 +3,8 @@ package com.luckincoffee.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @Author: dyz
  * @Date: 2019/8/28 15:31
@@ -38,6 +40,17 @@ public class ForePageController {
     @GetMapping(value = "/login")
     public String login(){
         return "fore/login";
+    }
+
+    /**
+     * 将user对象从session作用域中删除
+     * @param session 保存在session作用域中的user对象
+     * @return 重定向到首页
+     */
+    @GetMapping("/forelogout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
+        return "redirect:home";
     }
 
 

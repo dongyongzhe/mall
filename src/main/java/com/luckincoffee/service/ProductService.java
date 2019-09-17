@@ -1,6 +1,6 @@
 package com.luckincoffee.service;
 
-import com.luckincoffee.pojo.Category;
+
 import com.luckincoffee.pojo.Product;
 
 import java.util.List;
@@ -11,4 +11,10 @@ import java.util.List;
  * @Description: 商品业务逻辑接口
  */
 public interface ProductService {
+    Product getById(int pid);
+
+    void setSaleAndReviewCount(Product product);
+
+    void setSaleAndReviewCount(List<Product> products);
+
 }
