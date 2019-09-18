@@ -33,7 +33,7 @@ public class ForeRestController {
     /**
      * 首页
      */
-    @GetMapping("/forehome")
+    @GetMapping(value = "/forehome")
     public Result home(){
         //获取到所有的类别
         List<Category> c=categoryService.list();
@@ -49,7 +49,7 @@ public class ForeRestController {
      * @param user 前台传入的用户对象
      * @return 结果信息
      */
-    @PostMapping("/foreregister")
+    @PostMapping(value = "/foreregister")
     public Result register(@RequestBody User user){
         String username=user.getUsername();
         String password=user.getPassword();
@@ -71,7 +71,7 @@ public class ForeRestController {
      * @param session 作用域
      * @return 结果信息
      */
-    @PostMapping("/forelogin")
+    @PostMapping(value = "/forelogin")
     public Result login(@RequestBody User user, HttpSession session){
         String username=user.getUsername();
         username=HtmlUtils.htmlEscape(username);
@@ -85,9 +85,9 @@ public class ForeRestController {
             return Result.success();
         }
     }
-    @GetMapping("foreproduct/{pid}")
-    public Result getProduct(@PathVariable("pid") int id){
-        Product product= productService.getById(id);
+    @GetMapping(value = "/foreproduct/{pid}")
+    public Result getProduct(@PathVariable("pid") int pid){
+        Product product= productService.getById(pid);
         //获取到该商品的所有展示图片
         List<Picture> showPictures=pictureService.getByProductAndType(product,"show");
         //获取到该商品的所有详情图片
@@ -96,13 +96,25 @@ public class ForeRestController {
         product.setDetailPictures(detailPictures);
         //为商品设置展示图片属性
         product.setShowPictures(showPictures);
-        List<Review>  reviews= reviewService.getReviewList(product);
+        List<Review> reviews= reviewService.getReviewList(product);
 
         Map<String, Object> map = new HashMap<>(16);
         //将商品对象传入map
         map.put("product",product);
         //将商品评论加入map
         map.put("reviews",reviews);
+        return Result.success(map);
+    }
+    @GetMapping(value = "/forecategory/{cid}")
+    public Result showproductsByCategory(@PathVariable int cid){
+        Category category = categoryService.get(cid);
+        String categoryName = category.getName();
+        //该分类下的所有商品
+        List<Product> products = categoryService.findByCategory(category);
+        //将分类名称以及该分类下的所有商品放入map集合返回
+        Map<String, Object> map = new HashMap<>(16);
+        map.put("categoryName",categoryName);
+        map.put("products",products);
         return Result.success(map);
     }
 

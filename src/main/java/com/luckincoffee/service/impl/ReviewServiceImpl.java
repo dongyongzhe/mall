@@ -18,6 +18,15 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ReviewMapper reviewMapper;
+
+    /**
+     * @param review 评论对象
+     */
+    @Override
+    public void addReview(Review review) {
+
+    }
+
     @Override
     public List<Review> getReviewList(Product product) {
         int pid = product.getId();

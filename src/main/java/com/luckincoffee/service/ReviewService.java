@@ -11,6 +11,7 @@ import java.util.List;
  * @Description: 商品评论业务逻辑层
  */
 public interface ReviewService {
+    void addReview(Review review);
     List<Review> getReviewList(Product product);
     int getReviewCount(Product product);
 }

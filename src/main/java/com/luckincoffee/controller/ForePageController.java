@@ -12,10 +12,12 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class ForePageController {
+
     @GetMapping(value = "/")
     public String index(){
         return "redirect:home";
     }
+
     @GetMapping(value = "home")
     public String home(){
         return "fore/home";
@@ -47,10 +49,20 @@ public class ForePageController {
      * @param session 保存在session作用域中的user对象
      * @return 重定向到首页
      */
-    @GetMapping("/forelogout")
+    @GetMapping(value = "/forelogout")
     public String logout(HttpSession session) {
         session.removeAttribute("user");
         return "redirect:home";
+    }
+
+    @GetMapping(value="/product")
+    public String product(){
+        return "fore/product";
+    }
+
+    @GetMapping(value="/category")
+    public String category(){
+        return "fore/category";
     }
 
 

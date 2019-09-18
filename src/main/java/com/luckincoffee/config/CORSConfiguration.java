@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  * @Author: dyz
- * @Date: 2019/8/23 11:13
+ * @Date: 2019/8/30 11:13
  * @Description: 解决前后端分离跨域问题
  */
 @Configuration

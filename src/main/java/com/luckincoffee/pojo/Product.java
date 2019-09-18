@@ -17,7 +17,7 @@ public class Product {
     private String publisher;
     private Date years;
     private Float originalPrice;
-    private Float promatePrice;
+    private Float promotePrice;
     private int stock;
 
     /**
@@ -133,12 +133,12 @@ public class Product {
         originalPrice = originalPrice;
     }
 
-    public Float getPromatePrice() {
-        return promatePrice;
+    public Float getPromotePrice() {
+        return promotePrice;
     }
 
-    public void setPromatePrice(Float promatePrice) {
-        promatePrice = promatePrice;
+    public void setPromotePrice(Float promotePrice) {
+        promotePrice = promotePrice;
     }
 
     public int getStock() {
@@ -192,7 +192,7 @@ public class Product {
                 ", publisher='" + publisher + '\'' +
                 ", years=" + years +
                 ", originalPrice=" + originalPrice +
-                ", promatePrice=" + promatePrice +
+                ", promatePrice=" + promotePrice +
                 ", stock=" + stock +
                 ", categoryId=" + categoryId +
                 ", status=" + status +

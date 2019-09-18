@@ -29,18 +29,19 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.getById(pid);
     }
 
-    public void setSaleAndReviewNumber(Product product) {
+    @Override
+    public void setSaleAndReviewCount(Product product) {
         int saleCount = orderItemService.getSaleCount(product);
         product.setSaleCount(saleCount);
 
         int reviewCount = reviewService.getReviewCount(product);
         product.setReviewCount(reviewCount);
-
     }
 
-    public void setSaleAndReviewNumber(List<Product> products) {
-        for(Product product : products) {
-            setSaleAndReviewNumber(product);
+    @Override
+    public void setSaleAndReviewCount(List<Product> products) {
+        for (Product product : products) {
+            setSaleAndReviewCount(product);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.luckincoffee.mapper;
 import com.luckincoffee.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -45,5 +46,5 @@ public interface UserMapper {
      * 根据用户名和密码查找用户，和登录页面传来的数据一一对应
      */
     @Select("SELECT * FROM t_member WHERE name=#{name} AND password=#{password}")
-    User findByUsernameAndPassword(String name,String password);
+    User findByUsernameAndPassword(@Param("name") String name, @Param("password") String password);
 }

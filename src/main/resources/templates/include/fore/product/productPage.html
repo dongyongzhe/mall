@@ -1,17 +1,16 @@
-<!-- 模仿天猫整站springboot 教程 为how2j.cn 版权所有-->
-<!-- 本教程仅用于学习使用，切勿用于非法用途，由此引起一切后果与本站无关-->
-<!-- 供购买者学习，请勿私自传播，否则自行承担相关法律责任-->
-
 <div th:fragment="html">
     <script>
         $(function(){
             var pid = getUrlParms("pid");
             var data4Vue = {
+                //url
                 uri:'foreproduct',
+                //商品
                 p:'',
+                //分类
                 category:null,
-                firstProductImage:null,
-                pvs:[],
+                //show picture
+                showPicture:null,
                 reviews:[],
                 showDetail:true,
                 showReview:false,
@@ -31,14 +30,9 @@
                         axios.get(url).then(function(response) {
                             var result = response.data;
                             vue.p=result.data.product;
-                            vue.pvs=result.data.pvs;
                             vue.reviews=result.data.reviews;
-
                             vue.category = vue.p.category;
-                            vue.firstProductImage = vue.p.firstProductImage;
-                            vue.$nextTick(function(){
-                                imgAndInfoPageRegisterListeners(vue);
-                            })
+                            vue.showPictures = vue.p.showPictures;
                         });
 
                     },
@@ -57,13 +51,13 @@
         });
     </script>
 
-    <title>模仿天猫官网 -- {{p.name}}</title>
+    <title>墨墨书城 -- {{p.name}}</title>
     <div class="categoryPictureInProductPageDiv">
         <img v-if="category!=null" class="categoryPictureInProductPage" :src="'img/category/'+category.id+'.jpg'">
     </div>
     <div class="productPageDiv">
         <div th:replace="include/fore/product/imgAndInfo::html" ></div>
         <div th:replace="include/fore/product/productReview::html" ></div>
-        <div th:replace="include/fore/product/productDetail::html" ></div>
+        <!--<div th:replace="include/fore/product/productDetail::html" ></div>-->
     </div>
 </div>

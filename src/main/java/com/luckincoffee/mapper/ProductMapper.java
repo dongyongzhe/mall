@@ -14,6 +14,6 @@ public interface ProductMapper {
     /**
      *根据商品Id获取到商品对象
      */
-    @Select("SELECT * FORM t_product WHERE id=#{pid}")
+    @Select("SELECT * FROM t_product WHERE id=#{pid}")
     Product getById(int pid);
 }

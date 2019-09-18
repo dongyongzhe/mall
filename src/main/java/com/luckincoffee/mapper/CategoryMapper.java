@@ -29,6 +29,7 @@ public interface CategoryMapper {
     /**
      * 根据ID获取分类
      */
+    @Select("SELECT * FROM t_category WHERE id=#{id}")
     Category findOne(int id);
 
     /**

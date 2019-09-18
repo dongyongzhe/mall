@@ -22,6 +22,6 @@ public interface ReviewMapper {
     @Select("SELECT * FROM t_review WHERE product_id=#{productId}")
     List<Review> findByProductId(int productId);
 
-    @Select("SELECT reviewcount FROM t_product WHERE id=#{productId}")
+    @Select("SELECT count(*) FROM t_review WHERE product_id=#{pid}")
     int getReviewCount(int pid);
 }

@@ -25,6 +25,26 @@ public class Picture {
      */
     private String url;
 
+    private List<Picture> showPictures;
+
+    public List<Picture> getShowPictures() {
+        return showPictures;
+    }
+
+    public void setShowPictures(List<Picture> showPictures) {
+        this.showPictures = showPictures;
+    }
+
+    public List<Picture> getDetailPictures() {
+        return detailPictures;
+    }
+
+    public void setDetailPictures(List<Picture> detailPictures) {
+        this.detailPictures = detailPictures;
+    }
+
+    private List<Picture> detailPictures;
+
     public int getId() {
         return id;
     }
