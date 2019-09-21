@@ -1,19 +1,16 @@
 <div th:fragment="html">
 	<div class="categoryProducts">
-			<div v-for="p in products"  class="productUnit" :price="p.promotePrice">
+			<div v-for="p in productVos"  class="productUnit" :price="p.product.promotePrice">
 
 				<div class="productUnitFrame">
-					<a :href="'product?pid='+p.id">
+					<a :href="'product?pid='+p.product.id">
 						<img class="productImage" :src="'https://img3.doubanio.com/view/subject/l/public/s29063065.jpg'">
 					</a>
-					<span class="productPrice">{{p.promotePrice|formatMoneyFilter}} </span>
+					<span class="productPrice">{{p.product.promotePrice|formatMoneyFilter}} </span>
 
-					<a class="productLink" :href="'product?pid='+p.id">
-						 {{p.name|subStringFilter(0,50)}}
+					<a class="productLink" :href="'product?pid='+p.product.id">
+						 {{p.product.name|subStringFilter(0,50)}}
 					</a>
-
-					<a  class="tmallLink" :href="'product?pid='+p.id">墨墨</a>
-
 					<div class="show1 productInfo">
 						<span class="monthDeal ">月成交 <span class="productDealNumber">{{p.saleCount}}笔</span></span>
 						<span class="productReview">评价<span class="productReviewNumber">{{p.reviewCount}}</span></span>

@@ -1,14 +1,15 @@
 package com.luckincoffee.service.impl;
 
+import com.luckincoffee.mapper.OrderItemMapper;
+import com.luckincoffee.mapper.PictureMapper;
 import com.luckincoffee.mapper.ProductMapper;
+import com.luckincoffee.mapper.ReviewMapper;
 import com.luckincoffee.pojo.Product;
-import com.luckincoffee.service.OrderItemService;
 import com.luckincoffee.service.ProductService;
-import com.luckincoffee.service.ReviewService;
+import com.luckincoffee.vo.ProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 /**
  * @Author: yongzhe.dong@luckincoffee.com
@@ -20,28 +21,36 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductMapper productMapper;
     @Autowired
-    private ReviewService reviewService;
+    private PictureMapper pictureMapper;
     @Autowired
-    private OrderItemService orderItemService;
+    private ReviewMapper reviewMapper;
+    @Autowired
+    private OrderItemMapper orderItemMapper;
+
 
     @Override
-    public Product getById(int pid) {
-        return productMapper.getById(pid);
+    public Product getById(int id) {
+        Product product = productMapper.getById(id);
+        return product;
     }
 
+    /**
+     * 获取要展示的商品信息
+     * @param product 商品对象
+     * @return
+     */
     @Override
-    public void setSaleAndReviewCount(Product product) {
-        int saleCount = orderItemService.getSaleCount(product);
-        product.setSaleCount(saleCount);
-
-        int reviewCount = reviewService.getReviewCount(product);
-        product.setReviewCount(reviewCount);
-    }
-
-    @Override
-    public void setSaleAndReviewCount(List<Product> products) {
-        for (Product product : products) {
-            setSaleAndReviewCount(product);
-        }
+    public ProductVo getProductVo(Product product) {
+        ProductVo productVo = new ProductVo();
+        int pid=product.getId();
+        //设置展示图片
+        productVo.setShowPicture(pictureMapper.getShowPicture(pid));
+        //设置详细图片
+        productVo.setDetailPictures(pictureMapper.getDetailsPictures(pid));
+        productVo.setReviews(reviewMapper.findByProductId(pid));
+        productVo.setReviewCount(reviewMapper.getReviewCount(pid));
+        productVo.setSaleCount(orderItemMapper.getSaleCount(pid));
+        productVo.setProduct(product);
+        return productVo;
     }
 }

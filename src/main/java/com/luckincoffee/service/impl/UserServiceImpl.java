@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @Author: dyz
  * @Date: 2019/8/27 13:49
- * @Description: ${description}
+ * @Description: 用户业务逻辑
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        return userMapper.findByUsernameAndPassword(username,password);
+        User user=userMapper.findByUsernameAndPassword(username,password);
+        return user;
     }
 }

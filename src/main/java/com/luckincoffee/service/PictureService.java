@@ -14,9 +14,16 @@ import java.util.List;
 @Service
 public interface PictureService {
     /**
+     * 获取展示的商品设置详细图片集合
      * @param product 商品类
-     * @param type 图片类型
-     * @return 图片集合
+     * @return 详情图片集合
      */
-    List<Picture> getByProductAndType(Product product, String type);
+    List<Picture> getDetailPictures(Product product);
+
+    /**
+     * 获取展示的商品设置展示图片
+     * @param product 商品类
+     * @return 展示图片
+     */
+    Picture getShowPicture(Product product);
 }

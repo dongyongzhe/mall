@@ -1,6 +1,5 @@
 package com.luckincoffee.mapper;
 
-import com.luckincoffee.pojo.Product;
 import com.luckincoffee.pojo.Review;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

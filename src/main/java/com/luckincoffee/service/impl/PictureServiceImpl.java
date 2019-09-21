@@ -19,9 +19,25 @@ public class PictureServiceImpl implements PictureService {
     @Autowired
     private PictureMapper pictureMapper;
 
+    /**
+     * 为展示的商品设置详细图片属性
+     * @param product 商品类
+     */
     @Override
-    public List<Picture> getByProductAndType(Product product, String type) {
-        int pid = product.getId();
-        return pictureMapper.getByProductIdAndType(pid,type);
+    public List<Picture> getDetailPictures(Product product) {
+        int pid=product.getId();
+        List<Picture> pictures = pictureMapper.getDetailsPictures(pid);
+        return pictures;
+    }
+
+    /**
+     * 为展示的商品设置展示图片属性
+     * @param product 商品类
+     */
+    @Override
+    public Picture getShowPicture(Product product) {
+        int pid=product.getId();
+        Picture showPicture = pictureMapper.getShowPicture(pid);
+        return showPicture;
     }
 }

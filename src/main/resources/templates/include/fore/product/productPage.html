@@ -9,11 +9,14 @@
                 p:'',
                 //分类
                 category:null,
-                //show picture
+                //商品展示图片
                 showPicture:null,
+                //商品详请图片
+                detailPictures:[],
+                // 评论
                 reviews:[],
-                showDetail:true,
-                showReview:false,
+                showDetail:false,
+                showReview:true,
                 user:{name:'', password:''}
             };
             //ViewModel
@@ -31,8 +34,10 @@
                             var result = response.data;
                             vue.p=result.data.product;
                             vue.reviews=result.data.reviews;
-                            vue.category = vue.p.category;
-                            vue.showPictures = vue.p.showPictures;
+                            vue.showPicture = result.data.showPicture;
+                            vue.$nextTick(function(){
+                                imgAndInfoPageRegisterListeners(vue);
+                            })
                         });
 
                     },
@@ -52,9 +57,9 @@
     </script>
 
     <title>墨墨书城 -- {{p.name}}</title>
-    <div class="categoryPictureInProductPageDiv">
-        <img v-if="category!=null" class="categoryPictureInProductPage" :src="'img/category/'+category.id+'.jpg'">
-    </div>
+    <!--<div class="categoryPictureInProductPageDiv">-->
+        <!--<img v-if="category!=null" class="categoryPictureInProductPage" :src="'img/category/'+category.id+'.jpg'">-->
+    <!--</div>-->
     <div class="productPageDiv">
         <div th:replace="include/fore/product/imgAndInfo::html" ></div>
         <div th:replace="include/fore/product/productReview::html" ></div>

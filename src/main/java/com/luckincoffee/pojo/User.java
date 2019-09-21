@@ -7,8 +7,70 @@ package com.luckincoffee.pojo;
  */
 public class User {
     private int id;
-    private String username;
+    private String name;
     private String password;
+    private String salt;
+    private byte sex;
+    private String phone;
+    private String avator;
+    private int score;
+    private byte status;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public byte getSex() {
+        return sex;
+    }
+
+    public void setSex(byte sex) {
+        this.sex = sex;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAvator() {
+        return avator;
+    }
+
+    public void setAvator(String avator) {
+        this.avator = avator;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(byte status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -19,11 +81,11 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return name;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.name = username;
     }
 
     public String getPassword() {
@@ -38,7 +100,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", username='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

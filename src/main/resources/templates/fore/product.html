@@ -6,7 +6,8 @@
     <div th:replace="include/fore/top::html" ></div>
     <div th:replace="include/fore/search::html" ></div>
     <div th:replace="include/fore/product/productPage::html" ></div>
-    <!--<div th:replace="include/fore/modal4login::html" ></div>-->
+    <!--用户进行下单操作是判断用户是否登录，若未登录弹出模态框进行登录-->
+    <div th:replace="include/fore/modal4login::html" ></div>
     <div th:replace="include/fore/footer::html" ></div>
 </div>
 </body>

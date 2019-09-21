@@ -28,5 +28,12 @@ public interface OrderItemMapper {
     @Select("SELECT * FROM t_orderItem WHERE product_id=#{pid}")
     List<OrderItem> findByProductId(int pid);
 
+    /**
+     * @param pid 商品Id
+     * @return 该商品的销量
+     */
+    @Select("SELECT count(*) from t_orderItem WHERE product_id=#{pid}")
+    int getSaleCount(int pid);
+
 
 }

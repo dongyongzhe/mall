@@ -22,4 +22,5 @@ public interface OrderItemService {
      * @return 商品销量
      */
     int getSaleCount(Product product);
+
 }

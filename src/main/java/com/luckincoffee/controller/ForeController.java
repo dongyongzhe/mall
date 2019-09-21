@@ -3,6 +3,9 @@ package com.luckincoffee.controller;
 import com.luckincoffee.pojo.*;
 import com.luckincoffee.service.*;
 import com.luckincoffee.util.Result;
+import com.luckincoffee.vo.CartVo;
+import com.luckincoffee.vo.CategoryVo;
+import com.luckincoffee.vo.ProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
@@ -18,7 +21,7 @@ import java.util.Map;
  * @Description: 前台页面控制器
  */
 @RestController
-public class ForeRestController {
+public class ForeController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -27,8 +30,10 @@ public class ForeRestController {
     private ProductService productService;
     @Autowired
     private PictureService pictureService;
-    @Autowired
-    private ReviewService reviewService;
+//    @Autowired
+//    private ReviewService reviewService;
+//    @Autowired
+//    private CartService cartService;
 
     /**
      * 首页
@@ -36,11 +41,7 @@ public class ForeRestController {
     @GetMapping(value = "/forehome")
     public Result home(){
         //获取到所有的类别
-        List<Category> c=categoryService.list();
-        for (Category category : c) {
-            //给每一个类别附上商品集合属性
-            category.setProducts(categoryService.findByCategory(category));
-        }
+        List<CategoryVo> c=categoryService.listAllCategoryVo();
         return Result.success(c);
     }
 
@@ -85,37 +86,76 @@ public class ForeRestController {
             return Result.success();
         }
     }
+
+    /**
+     * 根据商品Id获取到的商品详情
+     * @param pid 商品Id
+     * @return 查询到的结果信息
+     */
     @GetMapping(value = "/foreproduct/{pid}")
     public Result getProduct(@PathVariable("pid") int pid){
         Product product= productService.getById(pid);
-        //获取到该商品的所有展示图片
-        List<Picture> showPictures=pictureService.getByProductAndType(product,"show");
-        //获取到该商品的所有详情图片
-        List<Picture> detailPictures=pictureService.getByProductAndType(product,"detail");
-        //为商品设置详情图片属性
-        product.setDetailPictures(detailPictures);
-        //为商品设置展示图片属性
-        product.setShowPictures(showPictures);
-        List<Review> reviews= reviewService.getReviewList(product);
-
-        Map<String, Object> map = new HashMap<>(16);
-        //将商品对象传入map
-        map.put("product",product);
-        //将商品评论加入map
-        map.put("reviews",reviews);
-        return Result.success(map);
+        ProductVo productVo = productService.getProductVo(product);
+        return Result.success(productVo);
     }
+
+
+    /**
+     * 前台根据Id获取到该分类下的所有商品信息
+     * @param cid 类别Id
+     * @return 该分类下的所有商品
+     */
     @GetMapping(value = "/forecategory/{cid}")
     public Result showproductsByCategory(@PathVariable int cid){
-        Category category = categoryService.get(cid);
+        Category category = categoryService.getById(cid);
         String categoryName = category.getName();
         //该分类下的所有商品
-        List<Product> products = categoryService.findByCategory(category);
+        List<ProductVo> productVos = categoryService.listProductVo(category);
         //将分类名称以及该分类下的所有商品放入map集合返回
         Map<String, Object> map = new HashMap<>(16);
         map.put("categoryName",categoryName);
-        map.put("products",products);
+        map.put("productVos",productVos);
         return Result.success(map);
     }
 
+    /**
+     * 检测用户是否登录
+     */
+    @GetMapping(value = "/forecheckLogin")
+    public Result checkLogin(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (null!=user){
+            return Result.success();
+        }else {
+        return Result.fail("您还未登录");
+        }
+    }
+//
+//    /**
+//     * 添加购物车
+//     * @param pid 商品ID
+//     * @param num 商品数量
+//     * @param session session 存储的用户对象
+//     * @return 结果
+//     */
+//    @GetMapping(value = "/foreaddCart")
+//    public Result addCart(int pid,int num,HttpSession session){
+//        User user = (User) session.getAttribute("user");
+//        cartService.addCart(pid,num,user);
+//        return Result.success();
+//    }
+//
+//    /**
+//     *展示购物车
+//     *@param session session 存储的用户对象
+//     *@return 结果
+//     */
+//    @GetMapping(value = "/forecart")
+//    public Result getCart(HttpSession session){
+//        User user = (User) session.getAttribute("user");
+//        //包括购物车中的商品名称，图片，价格以及选择的该商品的数量
+//        List<CartVo> cartVos=cartService.getCart(user);
+//        return Result.success(cartVos);
+//    }
+//
 }

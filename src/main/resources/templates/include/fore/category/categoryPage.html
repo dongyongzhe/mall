@@ -5,7 +5,7 @@
 	        var data4Vue = {
 	        		uri:'forecategory',
 	        		categoryName:'',
-					products:[]
+					productVos:[]
 	        };
 	        //ViewModel
 	        var vue = new Vue({
@@ -19,7 +19,7 @@
 	                    var url =  this.uri+"/"+cid;
 	                    axios.get(url).then(function(response) {
 	                    	vue.categoryName = response.data.data.categoryName;
-	                    	vue.products=response.data.data.products;
+	                    	vue.productVos=response.data.data.productVos;
 	                        vue.$nextTick(function(){
 	        	            	linkDefaultActions();
 	                        })

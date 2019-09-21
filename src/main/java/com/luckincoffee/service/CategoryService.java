@@ -2,6 +2,8 @@ package com.luckincoffee.service;
 
 import com.luckincoffee.pojo.Category;
 import com.luckincoffee.pojo.Product;
+import com.luckincoffee.vo.CategoryVo;
+import com.luckincoffee.vo.ProductVo;
 
 import java.util.List;
 
@@ -11,8 +13,8 @@ import java.util.List;
  * @Date: 2019/8/22 17:31
  */
 public interface CategoryService {
-    List<Category> list();
-    void add(Category category);
-    Category get(int id);
-    List<Product> findByCategory(Category category);
+    Category getById(int cid);
+    List<CategoryVo> listAllCategoryVo();
+    List<ProductVo> listProductVo(Category category);
+
 }

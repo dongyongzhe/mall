@@ -1,13 +1,13 @@
 package com.luckincoffee.pojo;
 
-import java.util.List;
-
 /**
  * @Author: yongzhe.dong@luckincoffee.com
  * @Date: 2019/9/17 13:41
  * @Description: 图片实体类
  */
 public class Picture {
+    public String SHOW="show";
+    public String DETAIL="detail";
     /**
      * 图片ID
      */
@@ -24,26 +24,6 @@ public class Picture {
      * 图片所在的地址
      */
     private String url;
-
-    private List<Picture> showPictures;
-
-    public List<Picture> getShowPictures() {
-        return showPictures;
-    }
-
-    public void setShowPictures(List<Picture> showPictures) {
-        this.showPictures = showPictures;
-    }
-
-    public List<Picture> getDetailPictures() {
-        return detailPictures;
-    }
-
-    public void setDetailPictures(List<Picture> detailPictures) {
-        this.detailPictures = detailPictures;
-    }
-
-    private List<Picture> detailPictures;
 
     public int getId() {
         return id;
@@ -76,4 +56,5 @@ public class Picture {
     public void setUrl(String url) {
         this.url = url;
     }
+
 }

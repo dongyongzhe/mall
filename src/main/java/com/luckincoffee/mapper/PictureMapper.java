@@ -16,9 +16,11 @@ import java.util.List;
 public interface PictureMapper {
     /**
      * @param pid 商品Id
-     * @param type 图片类型
      * @return 商品图片集合
      */
-    @Select("SELECT * FROM t_product_image WHERE product_id=#{pid} AND utype=#{type}")
-    List<Picture> getByProductIdAndType(@Param("pid") int pid,@Param("type") String type);
+    @Select("SELECT * FROM t_product_image WHERE product_id=#{pid} AND utype='show'")
+    Picture getShowPicture(@Param("pid") int pid);
+
+    @Select("SELECT * FROM t_product_image WHERE product_id=#{pid} AND utype='detail'")
+    List<Picture> getDetailsPictures(@Param("pid") int pid);
 }

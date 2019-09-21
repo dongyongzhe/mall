@@ -65,5 +65,4 @@ public class ForePageController {
         return "fore/category";
     }
 
-
 }
