@@ -15,8 +15,8 @@ public class Product {
     private String author;
     private String publisher;
     private Date years;
-    private Float originalPrice;
-    private Float promotePrice;
+    private float originalPrice;
+    private float promotePrice;
     private int stock;
     private int categoryId;
     /**
@@ -83,19 +83,19 @@ public class Product {
         this.years = years;
     }
 
-    public Float getOriginalPrice() {
+    public float getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(Float originalPrice) {
+    public void setOriginalPrice(float originalPrice) {
         originalPrice = originalPrice;
     }
 
-    public Float getPromotePrice() {
+    public float getPromotePrice() {
         return promotePrice;
     }
 
-    public void setPromotePrice(Float promotePrice) {
+    public void setPromotePrice(float promotePrice) {
         promotePrice = promotePrice;
     }
 

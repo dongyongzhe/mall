@@ -13,13 +13,24 @@ import java.util.List;
 @Mapper
 public interface CartMapper {
 
+    /**
+     * 添加购物车
+     * @param cart 购物车对象
+     */
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("INSERT INTO t_cart(NULL,#{cart.userId},#{cart.productId},#{cart.number)")
+    @Insert("INSERT INTO t_cart(id,user_id,product_id,number) VALUES(null,#{userId},#{productId},#{number})")
     void addCart(Cart cart);
 
+    /**
+     * @param uid 用户Id
+     * @return 购物车集合
+     */
     @Select("SELECT * FROM t_cart WHERE user_id=#{uid}")
     List<Cart> getByUserId(int uid);
 
-    @Update("UPDATE t_cart ")
+    @Update("UPDATE t_cart SET user_id=#{userId},product_id=#{productId},number=number+#{number} WHERE id=#{id}")
     int updateCart(Cart cart);
+
+    @Select("SELECT * FROM t_cart WHERE user_id=#{uid} AND product_id=#{pid}")
+    Cart getByProductId(@Param("pid") int pid,@Param("uid") int uid);
 }

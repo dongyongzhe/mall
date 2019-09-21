@@ -6,6 +6,7 @@ import com.luckincoffee.pojo.Cart;
 import com.luckincoffee.pojo.Product;
 import com.luckincoffee.pojo.User;
 import com.luckincoffee.service.CartService;
+import com.luckincoffee.service.ProductService;
 import com.luckincoffee.vo.CartVo;
 import com.luckincoffee.vo.ProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,41 +26,51 @@ public class CartServiceImpl implements CartService {
     private CartMapper cartMapper;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private ProductService productService;
 
+    /**
+     * 添加购物车
+     * @param pid  商品Id
+     * @param num  加入的商品数量
+     * @param user 用户
+     */
     @Override
     public void addCart(int pid, int num, User user) {
         Product product = productMapper.getById(pid);
         List<Product> products = new ArrayList<>();
+        int uid=user.getId();
         Cart cart = new Cart();
+        cart.setUserId(uid);
         cart.setNumber(num);
-        cart.setUserId(user.getId());
-        List<CartVo> cartVos = getCart(user);
-        if (null!=cartVos){
-            for (CartVo cartVo : cartVos) {
-                ProductVo productVo = cartVo.getProductVo();
-                Product product1 = productVo.getProduct();
-                products.add(product1);
-            }
-            if (products.contains(product)){
-                cartMapper.updateCart(cart);
-            }else{
-                cartMapper.addCart(cart);
-            }
-
+        cart.setProductId(pid);
+        Cart cartbyProductId = cartMapper.getByProductId(uid, pid);
+        if (null!=cartbyProductId){
+            cartMapper.updateCart(cart);
         }else{
             cartMapper.addCart(cart);
         }
-
     }
 
+    /**
+     * @param user 用户对象
+     * @return 获取到的购物车集合
+     */
     @Override
     public List<CartVo> getCart(User user) {
-        List<Object> cartVos = new ArrayList<>();
+        List<CartVo> cartVos = new ArrayList<>();
         List<Cart> carts = cartMapper.getByUserId(user.getId());
         for (Cart cart : carts) {
+            int number = cart.getNumber();
             CartVo cartVo = new CartVo();
+            cartVo.setNumber(number);
+            int productId = cart.getProductId();
+            Product product = productService.getById(productId);
+            ProductVo productVo = productService.getProductVo(product);
+            cartVo.setProductVo(productVo);
+            cartVos.add(cartVo);
         }
-        return null;
+        return cartVos;
 
     }
 }

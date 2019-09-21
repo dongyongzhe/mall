@@ -29,10 +29,6 @@ public class ForeController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private PictureService pictureService;
-    @Autowired
-    private ReviewService reviewService;
-    @Autowired
     private CartService cartService;
 
     /**
@@ -147,7 +143,7 @@ public class ForeController {
 
     /**
      *展示购物车
-     *@param session session 存储的用户对象
+     *@param session session存储的用户对象
      *@return 结果
      */
     @GetMapping(value = "/forecart")
