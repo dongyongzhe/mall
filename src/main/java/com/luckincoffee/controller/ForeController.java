@@ -30,10 +30,10 @@ public class ForeController {
     private ProductService productService;
     @Autowired
     private PictureService pictureService;
-//    @Autowired
-//    private ReviewService reviewService;
-//    @Autowired
-//    private CartService cartService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private CartService cartService;
 
     /**
      * 首页
@@ -130,32 +130,32 @@ public class ForeController {
         return Result.fail("您还未登录");
         }
     }
-//
-//    /**
-//     * 添加购物车
-//     * @param pid 商品ID
-//     * @param num 商品数量
-//     * @param session session 存储的用户对象
-//     * @return 结果
-//     */
-//    @GetMapping(value = "/foreaddCart")
-//    public Result addCart(int pid,int num,HttpSession session){
-//        User user = (User) session.getAttribute("user");
-//        cartService.addCart(pid,num,user);
-//        return Result.success();
-//    }
-//
-//    /**
-//     *展示购物车
-//     *@param session session 存储的用户对象
-//     *@return 结果
-//     */
-//    @GetMapping(value = "/forecart")
-//    public Result getCart(HttpSession session){
-//        User user = (User) session.getAttribute("user");
-//        //包括购物车中的商品名称，图片，价格以及选择的该商品的数量
-//        List<CartVo> cartVos=cartService.getCart(user);
-//        return Result.success(cartVos);
-//    }
-//
+
+    /**
+     * 添加购物车
+     * @param pid 商品ID
+     * @param num 商品数量
+     * @param session session 存储的用户对象
+     * @return 结果
+     */
+    @GetMapping(value = "/foreaddCart")
+    public Result addCart(int pid,int num,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        cartService.addCart(pid,num,user);
+        return Result.success();
+    }
+
+    /**
+     *展示购物车
+     *@param session session 存储的用户对象
+     *@return 结果
+     */
+    @GetMapping(value = "/forecart")
+    public Result getCart(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        //包括购物车中的商品名称，图片，价格以及选择的该商品的数量
+        List<CartVo> cartVos=cartService.getCart(user);
+        return Result.success(cartVos);
+    }
+
 }
