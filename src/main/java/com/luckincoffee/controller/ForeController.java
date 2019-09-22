@@ -137,8 +137,26 @@ public class ForeController {
     @GetMapping(value = "/foreaddCart")
     public Result addCart(int pid,int num,HttpSession session){
         User user = (User) session.getAttribute("user");
-        cartService.addCart(pid,num,user);
-        return Result.success();
+        int uid = user.getId();
+        Integer cartCount = cartService.getCountByUidAndPid(uid,pid);
+        Product product = productService.getById(pid);
+        int stock = product.getStock();
+        //如果购物车里该商品的数量小于等于库存，就可以继续加入购物车
+        if(null!=cartCount&&(num+cartCount)<=stock){
+            cartService.addCart(pid,num,user);
+            return Result.success("加入成功!");
+        }
+        else if(null==cartCount&&(num+cartCount)<=stock){
+            cartService.addCart(pid,num,user);
+            return Result.success("加入成功!");
+        }
+        else if(null!=cartCount&&(num+cartCount)>stock&&cartCount<stock) {
+            return Result.fail("添加多了哦>_<",2);
+        }
+        else{
+            return Result.fail("购物车中该商品到上限了哟",1);
+        }
+
     }
 
     /**
@@ -152,6 +170,42 @@ public class ForeController {
         //包括购物车中的商品名称，图片，价格以及选择的该商品的数量
         List<CartVo> cartVos=cartService.getCart(user);
         return Result.success(cartVos);
+    }
+
+    /**
+     * 购物车页面修改商品数量
+     * @param session 存储的用户对象
+     * @param pid 商品Id
+     * @param num 修改的数量
+     * @return 返回的结果
+     */
+    @GetMapping(value = "/foreupdatecart")
+    public Result updateCart(HttpSession session, int pid, int num) {
+        User user = (User) session.getAttribute("user");
+        int uid = user.getId();
+        if (null == user) {
+            return Result.fail("未登录");
+        } else {
+            cartService.updateCart(uid, pid,num);
+            return Result.success();
+        }
+    }
+
+    /**
+     * 删除购物车中的某一商品
+     * @param session 存储的用户对象
+     * @param pid 商品Id
+     * @return 返回给前台的结果
+     */
+    @GetMapping("foredeletecart")
+    public Result deleteCart(HttpSession session,int pid){
+        User user =(User)  session.getAttribute("user");
+        if(null==user){
+            return Result.fail("未登录");
+        }else{
+            cartService.delete(user.getId(),pid);
+            return Result.success();
+        }
     }
 
 }

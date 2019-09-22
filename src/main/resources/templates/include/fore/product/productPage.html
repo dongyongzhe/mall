@@ -35,6 +35,8 @@
                             vue.p=result.data.product;
                             vue.reviews=result.data.reviews;
                             vue.showPicture = result.data.showPicture;
+                            vue.saleCount =result.data.saleCount;
+                            vue.reviewCount =result.data.reviewCount;
                             vue.$nextTick(function(){
                                 imgAndInfoPageRegisterListeners(vue);
                             })

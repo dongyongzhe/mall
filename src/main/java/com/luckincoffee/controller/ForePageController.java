@@ -13,11 +13,17 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ForePageController {
 
+    /**
+     * 跳转到首页
+     */
     @GetMapping(value = "/")
     public String index(){
         return "redirect:home";
     }
 
+    /**
+     * @return 首页
+     */
     @GetMapping(value = "home")
     public String home(){
         return "fore/home";
@@ -39,6 +45,9 @@ public class ForePageController {
         return "fore/registerSuccess";
     }
 
+    /**
+     * @return 登录页面
+     */
     @GetMapping(value = "/login")
     public String login(){
         return "fore/login";
@@ -55,14 +64,28 @@ public class ForePageController {
         return "redirect:home";
     }
 
+    /**
+     * @return 商品详情页面
+     */
     @GetMapping(value="/product")
     public String product(){
         return "fore/product";
     }
 
+    /**
+     * @return 分类页面
+     */
     @GetMapping(value="/category")
     public String category(){
         return "fore/category";
+    }
+
+    /**
+     * @return 购物车页面
+     */
+    @GetMapping(value="/cart")
+    public String cart(){
+        return "fore/cart";
     }
 
 }

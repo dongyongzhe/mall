@@ -31,6 +31,10 @@ public class Result {
         return new Result(FAIL_CODE, message, null);
 
     }
+    public static Result fail(String message,Object data) {
+        return new Result(FAIL_CODE, message, data);
+
+    }
 
     public int getCode() {
         return code;

@@ -28,9 +28,37 @@ public interface CartMapper {
     @Select("SELECT * FROM t_cart WHERE user_id=#{uid}")
     List<Cart> getByUserId(int uid);
 
-    @Update("UPDATE t_cart SET user_id=#{userId},product_id=#{productId},number=number+#{number} WHERE id=#{id}")
+    /**
+     * 更新购物车
+     * @param cart 购物车对象
+     * @return 改变的行数
+     */
+    @Update("UPDATE t_cart SET number=#{number} WHERE id=#{id}")
     int updateCart(Cart cart);
 
+    /**
+     * 根据商品Id和用户Id获取购物车
+     * @param pid 商品Id
+     * @param uid 用户Id
+     * @return 购物车对象
+     */
     @Select("SELECT * FROM t_cart WHERE user_id=#{uid} AND product_id=#{pid}")
-    Cart getByProductId(@Param("pid") int pid,@Param("uid") int uid);
+    Cart getByProductId(@Param("uid") int uid,@Param("pid") int pid);
+
+    /**
+     * 根据商品Id和用户Id获取购物车
+     * @param pid 商品Id
+     * @param uid 用户Id
+     * @return 购物车中该商品的数量
+     */
+    @Select("SELECT number FROM t_cart WHERE user_id=#{uid} AND product_id=#{pid}")
+    Integer getCountByUidAndPid(@Param("uid") int uid,@Param("pid") int pid);
+
+    /**
+     * 删除某一购物车
+     * @param cart 购物车对象
+     * @return 改变的行数
+     */
+    @Delete("DELETE FROM t_cart WHERE id=#{id}")
+    int deleteOne(Cart cart);
 }

@@ -3,7 +3,7 @@
 		$(function(){
 	        var data4Vue = {
 	        		uri:'forecart',
-	        		orderItems:[]
+	        		carts:[]
 	        };
 	        //ViewModel
 	        var vue = new Vue({
@@ -16,7 +16,7 @@
 	            	load:function(){
 	                    var url =  this.uri;
 	                    axios.get(url).then(function(response) {
-	                    	vue.orderItems = response.data;
+	                    	vue.carts = response.data.data;
 	                        vue.$nextTick(function(){
 	        	            	linkDefaultActions();
 	        	            	cartPageRegisterListeners();
@@ -30,34 +30,35 @@
 	
 	
 		var deleteOrderItem = false;
-		var deleteOrderItemid = 0;
+		var deleteCartId = 0;
 		function cartPageRegisterListeners(){
 			$("a.deleteOrderItem").click(function(){
 				deleteOrderItem = false;
+				//为元素ooid设置属性
 				var oiid = $(this).attr("oiid")
-				deleteOrderItemid = oiid;
-				$("#deleteConfirmModal").modal('show');	   
+                deleteCartId = oiid;
+				$("#deleteConfirmModal").modal('show');
 			});
 			$("button.deleteConfirmButton").click(function(){
 				deleteOrderItem = true;
 				$("#deleteConfirmModal").modal('hide');
 			});
-			
+
 			$('#deleteConfirmModal').on('hidden.bs.modal', function (e) {
 				if(deleteOrderItem){
-					
-					var url = "foredeleteOrderItem?oiid="+deleteOrderItemid;
+
+					var url = "foredeletecart?pid="+deleteCartId;
 		            axios.get(url).then(function(response){
 						if(0==response.data.code){
-							$("tr.cartProductItemTR[oiid="+deleteOrderItemid+"]").hide();
+							$("tr.cartProductItemTR[oiid="+deleteCartId+"]").hide();
 						}
 						else{
 							location.href="login";
 						}
 		            });
 				}
-			})	
-			
+			})
+
 			$("img.cartProductItemIfSelected").click(function(){
 				var selectit = $(this).attr("selectit")
 				if("selectit"==selectit){
@@ -83,7 +84,7 @@
 						$(this).attr("src","img/site/cartNotSelected.png");
 						$(this).attr("selectit","false");
 						$(this).parents("tr.cartProductItemTR").css("background-color","#fff");
-					});			
+					});
 				}
 				else{
 					$("img.selectAllItem").attr("src","img/site/cartSelected.png");
@@ -92,19 +93,19 @@
 						$(this).attr("src","img/site/cartSelected.png");
 						$(this).attr("selectit","selectit");
 						$(this).parents("tr.cartProductItemTR").css("background-color","#FFF8E1");
-					});				
+					});
 				}
 				syncCreateOrderButton();
 				calcCartSumPriceAndNumber();
-				
-		
+
+
 			});
-			
+
 			$(".orderItemNumberSetting").keyup(function(){
 				var pid=$(this).attr("pid");
 				var stock= $("span.orderItemStock[pid="+pid+"]").text();
 				var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
-				
+
 				var num= $(".orderItemNumberSetting[pid="+pid+"]").val();
 				num = parseInt(num);
 				if(isNaN(num))
@@ -113,17 +114,17 @@
 					num = 1;
 				if(num>stock)
 					num = stock;
-				
+
 				syncPrice(pid,num,price);
 			});
-		
+
 			$(".numberPlus").click(function(){
-				
+
 				var pid=$(this).attr("pid");
 				var stock= $("span.orderItemStock[pid="+pid+"]").text();
 				var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
 				var num= $(".orderItemNumberSetting[pid="+pid+"]").val();
-		
+
 				num++;
 				if(num>stock)
 					num = stock;
@@ -133,14 +134,14 @@
 				var pid=$(this).attr("pid");
 				var stock= $("span.orderItemStock[pid="+pid+"]").text();
 				var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
-				
+
 				var num= $(".orderItemNumberSetting[pid="+pid+"]").val();
 				--num;
 				if(num<=0)
 					num=1;
 				syncPrice(pid,num,price);
-			});	
-			
+			});
+
 			$("button.createOrderButton").click(function(){
 				var params = "";
 				$(".cartProductItemIfSelected").each(function(){
@@ -153,7 +154,7 @@
 				location.href="buy?"+params;
 			});
 		}
-	
+
 		function syncCreateOrderButton(){
 			var selectAny = false;
 			$(".cartProductItemIfSelected").each(function(){
@@ -161,16 +162,16 @@
 					selectAny = true;
 				}
 			});
-			
+
 			if(selectAny){
 				$("button.createOrderButton").css("background-color","#C40000");
 				$("button.createOrderButton").removeAttr("disabled");
 			}
 			else{
 				$("button.createOrderButton").css("background-color","#AAAAAA");
-				$("button.createOrderButton").attr("disabled","disabled");		
+				$("button.createOrderButton").attr("disabled","disabled");
 			}
-				
+
 		}
 		function syncSelect(){
 			var selectAll = true;
@@ -179,14 +180,14 @@
 					selectAll = false;
 				}
 			});
-			
+
 			if(selectAll)
 				$("img.selectAllItem").attr("src","img/site/cartSelected.png");
 			else
 				$("img.selectAllItem").attr("src","img/site/cartNotSelected.png");
-			
-			
-			
+
+
+
 		}
 		function calcCartSumPriceAndNumber(){
 			var sum = 0;
@@ -196,28 +197,28 @@
 				var price =$(".cartProductItemSmallSumPrice[oiid="+oiid+"]").text();
 				price = price.replace(/,/g, "");
 				price = price.replace(/￥/g, "");
-				sum += new Number(price);	
-				
+				sum += new Number(price);
+
 				var num =$(".orderItemNumberSetting[oiid="+oiid+"]").val();
-				totalNumber += new Number(num);	
-				
+				totalNumber += new Number(num);
+
 			});
-			
+
 			$("span.cartSumPrice").html("￥"+formatMoney(sum));
 			$("span.cartTitlePrice").html("￥"+formatMoney(sum));
 			$("span.cartSumNumber").html(totalNumber);
 		}
 		function syncPrice(pid,num,price){
 			$(".orderItemNumberSetting[pid="+pid+"]").val(num);
-			var cartProductItemSmallSumPrice = formatMoney(num*price); 
+			var cartProductItemSmallSumPrice = formatMoney(num*price);
 			$(".cartProductItemSmallSumPrice[pid="+pid+"]").html("￥"+cartProductItemSmallSumPrice);
 			calcCartSumPriceAndNumber();
-			
-			var url = "forechangeOrderItem?pid="+pid+"&num="+num;
+
+			var url = "foreupdatecart?pid="+pid+"&num="+num;
             axios.get(url).then(function(response){
 				if(0!=response.data.code){
 					location.href="login";
-				}            	
+				}
             });
 		}
 	</script>	
@@ -225,7 +226,7 @@
 	<title>购物车</title>
 	<div class="cartDiv">
 		<div class="cartTitle pull-right">
-			<span>已选商品  (不含运费)</span>
+			<span>已选商品</span>
 			<span class="cartTitlePrice">￥0.00</span>
 			<button class="createOrderButton" disabled="disabled">结 算</button>
 		</div>
@@ -236,9 +237,9 @@
 				<thead>
 					<tr>
 						<th class="selectAndImage">
-								<img selectit="false" class="selectAllItem" src="img/site/cartNotSelected.png">				
+								<img selectit="false" class="selectAllItem" src="img/site/cartNotSelected.png">
 						全选
-						
+
 						</th>
 						<th>商品信息</th>
 						<th>单价</th>
@@ -248,67 +249,66 @@
 					</tr>
 				</thead>
 				<tbody>
-						<tr :oiid="oi.id" class="cartProductItemTR" v-for="oi in orderItems">
+						<tr :oiid="cart.productVo.product.id" class="cartProductItemTR" v-for="cart in carts">
 							<td>
-								<img selectit="false" :oiid="oi.id" class="cartProductItemIfSelected" src="img/site/cartNotSelected.png">
+								<img selectit="false" :oiid="cart.productVo.product.id" class="cartProductItemIfSelected" src="img/site/cartNotSelected.png">
 								<a style="display:none" href="#nowhere"><img src="img/site/cartSelected.png"></a>
-								<img class="cartProductImg"  :src="'img/productSingle_middle/'+oi.product.firstProductImage.id+'.jpg'">
+								<!--<img class="cartProductImg"  :src="cart.productVo.showPicture.url">-->
+								<!--<img class="cartProductImg"  :src="http://ku.90sjimg.com/element_origin_min_pic/01/40/61/24573d0930008bc.jpg">-->
 							</td>
 							<td>
 								<div class="cartProductLinkOutDiv">
-									<a :href="'product?pid='+oi.product.id" class="cartProductLink">{{oi.product.name}}</a>
+									<a :href="'product?pid='+cart.productVo.product.id" class="cartProductLink">{{cart.productVo.product.name}}</a>
 									<div class="cartProductLinkInnerDiv">
 										<img src="img/site/creditcard.png" title="支持信用卡支付">
 										<img src="img/site/7day.png" title="消费者保障服务,承诺7天退货">
 										<img src="img/site/promise.png" title="消费者保障服务,承诺如实描述">
 									</div>
 								</div>
-								
+
 							</td>
 							<td>
-								<span class="cartProductItemOringalPrice">￥{{oi.product.originalPrice|formatMoneyFilter}}</span>
-								<span  class="cartProductItemPromotionPrice">￥{{oi.product.promotePrice|formatMoneyFilter}}</span>
-								
+								<span class="cartProductItemOringalPrice">￥{{cart.productVo.product.originalPrice|formatMoneyFilter}}</span>
+								<span  class="cartProductItemPromotionPrice">￥{{cart.productVo.product.promotePrice|formatMoneyFilter}}</span>
+
 							</td>
 							<td>
-							
+
 								<div class="cartProductChangeNumberDiv">
-									<span class="hidden orderItemStock " :pid="oi.product.id">{{oi.product.stock}}</span>
-									<span class="hidden orderItemPromotePrice " :pid="oi.product.id">{{oi.product.promotePrice}}</span>
-									<a  :pid="oi.product.id" class="numberMinus" href="#nowhere">-</a>
-									<input :pid="oi.product.id" :oiid="oi.id" class="orderItemNumberSetting" autocomplete="off" :value="oi.number">
-									<a  :stock="oi.product.stock" :pid="oi.product.id" class="numberPlus" href="#nowhere">+</a>
-								</div>					
-							
+									<span class="hidden orderItemStock " :pid="cart.productVo.product.id">{{cart.productVo.product.stock}}</span>
+									<span class="hidden orderItemPromotePrice " :pid="cart.productVo.product.id">{{cart.productVo.product.promotePrice}}</span>
+									<a  :pid="cart.productVo.product.id" class="numberMinus" href="#nowhere">-</a>
+									<input :pid="cart.productVo.product.id" :oiid="cart.productVo.product.id" class="orderItemNumberSetting" autocomplete="off" :value="cart.number">
+									<a  :stock="cart.productVo.product.stock" :pid="cart.productVo.product.id" class="numberPlus" href="#nowhere">+</a>
+								</div>
+
 							 </td>
 							<td >
-								<span class="cartProductItemSmallSumPrice" :oiid="oi.id" :pid="oi.product.id" >
-									￥ {{oi.product.promotePrice*oi.number|formatMoneyFilter}} 
+								<span class="cartProductItemSmallSumPrice" :oiid="cart.productVo.product.id" :pid="cart.productVo.product.id" >
+									￥ {{cart.productVo.product.promotePrice*cart.number|formatMoneyFilter}}
 								</span>
-							
+
 							</td>
 							<td>
-								<a class="deleteOrderItem" :oiid="oi.id"  href="#nowhere">删除</a>
+								<a class="deleteOrderItem" :ooid="cart.productVo.product.id"  href="#nowhere">删除</a>
 							</td>
 						</tr>
 				</tbody>
-			
+
 			</table>
 		</div>
-		
+
 		<div class="cartFoot">
 			<img selectit="false" class="selectAllItem" src="img/site/cartNotSelected.png">
 			<span>全选</span>
-	<!-- 		<a href="#">删除</a> -->
-			
 			<div class="pull-right">
 				<span>已选商品 <span class="cartSumNumber" >0</span> 件</span>
-				
-				<span>合计 (不含运费): </span> 
+
+				<span>合计 : </span>
 				<span class="cartSumPrice" >￥0.00</span>
 				<button class="createOrderButton" disabled="disabled" >结  算</button>
 			</div>
-			
+
 		</div>
 		
 	</div>

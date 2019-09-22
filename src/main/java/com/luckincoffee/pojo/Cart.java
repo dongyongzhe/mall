@@ -46,8 +46,6 @@ public class Cart {
         this.productId = productId;
     }
 
-
-
     public int getNumber() {
         return number;
     }
@@ -55,6 +53,4 @@ public class Cart {
     public void setNumber(int number) {
         this.number = number;
     }
-
-
 }

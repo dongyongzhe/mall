@@ -88,7 +88,8 @@ public class Product {
     }
 
     public void setOriginalPrice(float originalPrice) {
-        originalPrice = originalPrice;
+
+        this.originalPrice = originalPrice;
     }
 
     public float getPromotePrice() {
@@ -96,7 +97,7 @@ public class Product {
     }
 
     public void setPromotePrice(float promotePrice) {
-        promotePrice = promotePrice;
+        this.promotePrice = promotePrice;
     }
 
     public int getStock() {

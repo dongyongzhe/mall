@@ -37,15 +37,17 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public void addCart(int pid, int num, User user) {
-        Product product = productMapper.getById(pid);
-        List<Product> products = new ArrayList<>();
         int uid=user.getId();
         Cart cart = new Cart();
         cart.setUserId(uid);
         cart.setNumber(num);
         cart.setProductId(pid);
-        Cart cartbyProductId = cartMapper.getByProductId(uid, pid);
-        if (null!=cartbyProductId){
+        Cart cartByProductId = cartMapper.getByProductId(uid, pid);
+        int number = cart.getNumber();
+        if (null!=cartByProductId){
+            int id = cartByProductId.getId();
+            cart.setId(id);
+            cart.setNumber(number+num);
             cartMapper.updateCart(cart);
         }else{
             cartMapper.addCart(cart);
@@ -72,5 +74,39 @@ public class CartServiceImpl implements CartService {
         }
         return cartVos;
 
+    }
+
+    /**
+     * 获取某用户购物车中某一商品的数量
+     * @param uid 用户Id
+     * @param pid 商品Id
+     * @return 该用户购物车中某一商品的数量
+     */
+    @Override
+    public Integer getCountByUidAndPid(int uid, int pid) {
+        return cartMapper.getCountByUidAndPid(uid,pid);
+    }
+
+    /**
+     * @param uid    用户Id
+     * @param pid    商品Id
+     * @param number 修改的数量
+     */
+    @Override
+    public void updateCart(int uid, int pid, int number) {
+        Cart cart = cartMapper.getByProductId(uid, pid);
+        cart.setNumber(number);
+        cartMapper.updateCart(cart);
+    }
+
+    /**
+     * 删除购物车中某一商品
+     * @param uid 用户Id
+     * @param pid 商品Id
+     */
+    @Override
+    public void delete(int uid, int pid) {
+        Cart cart = cartMapper.getByProductId(uid, pid);
+        cartMapper.deleteOne(cart);
     }
 }
