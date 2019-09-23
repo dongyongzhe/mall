@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -206,6 +207,30 @@ public class ForeController {
             cartService.delete(user.getId(),pid);
             return Result.success();
         }
+    }
+
+    /**
+     * 结算
+     * @param pid 商品Id
+     * @param session 存储的用户对象
+     * @return
+     */
+    @GetMapping("forebuy")
+    public Result buy(String[] pid,HttpSession session){
+        List<CartVo> cartVos = new ArrayList<>();
+        User user = (User) session.getAttribute("user");
+        for (String ppid : pid) {
+            int pppid = Integer.parseInt(ppid);
+            CartVo cartVo = cartService.getOne(user.getId(), pppid);
+            cartVos.add(cartVo);
+        }
+        session.setAttribute("carts", cartVos);
+        return Result.success(cartVos);
+    }
+
+    @PostMapping("/forecreateorder")
+    public Result createOrder(HttpSession session){
+        return null;
     }
 
 }

@@ -46,11 +46,11 @@
 
 			$('#deleteConfirmModal').on('hidden.bs.modal', function (e) {
 				if(deleteOrderItem){
-
 					var url = "foredeletecart?pid="+deleteCartId;
 		            axios.get(url).then(function(response){
 						if(0==response.data.code){
-							$("tr.cartProductItemTR[oiid="+deleteCartId+"]").hide();
+                            //刷新当前页面直接
+                            location.replace('cart');
 						}
 						else{
 							location.href="login";
@@ -150,9 +150,14 @@
 						params += "&oiid="+oiid;
 					}
 				});
+                var a=calcCartSumPriceAndNumber();
 				params = params.substring(1);
-				location.href="buy?"+params;
+
+				//跳转到结算页面
+                location.href="buy?"+params+"&total="+	a;
+
 			});
+
 		}
 
 		function syncCreateOrderButton(){
@@ -204,9 +209,11 @@
 
 			});
 
+
 			$("span.cartSumPrice").html("￥"+formatMoney(sum));
 			$("span.cartTitlePrice").html("￥"+formatMoney(sum));
 			$("span.cartSumNumber").html(totalNumber);
+			return sum;
 		}
 		function syncPrice(pid,num,price){
 			$(".orderItemNumberSetting[pid="+pid+"]").val(num);
@@ -290,7 +297,7 @@
 
 							</td>
 							<td>
-								<a class="deleteOrderItem" :ooid="cart.productVo.product.id"  href="#nowhere">删除</a>
+								<a class="deleteOrderItem" :oiid="cart.productVo.product.id"  href="#nowhere">删除</a>
 							</td>
 						</tr>
 				</tbody>
@@ -306,7 +313,7 @@
 
 				<span>合计 : </span>
 				<span class="cartSumPrice" >￥0.00</span>
-				<button class="createOrderButton" disabled="disabled" >结  算</button>
+				<button class="createOrderButton" disabled="disabled">结  算</button>
 			</div>
 
 		</div>

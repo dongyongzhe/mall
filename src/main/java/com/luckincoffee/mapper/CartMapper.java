@@ -61,4 +61,13 @@ public interface CartMapper {
      */
     @Delete("DELETE FROM t_cart WHERE id=#{id}")
     int deleteOne(Cart cart);
+
+    /**
+     * @param pid 商品Id
+     * @param uid 用户Id
+     * @return 查询到的购物车对象
+     */
+    @Select("SELECT * FROM t_cart WHERE user_id=#{uid} AND product_id=#{pid}")
+    Cart getOne(@Param("uid") int uid,@Param("pid") int pid);
+
 }

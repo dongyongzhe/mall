@@ -48,4 +48,11 @@ public interface CartService {
      * @param pid 商品Id
      */
     void delete(int uid,int pid);
+
+    /**
+     * 查询购物车
+     * @param uid 用户Id
+     * @param pid 商品Id
+     */
+    CartVo getOne(int uid,int pid);
 }

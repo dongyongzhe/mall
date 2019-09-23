@@ -88,4 +88,12 @@ public class ForePageController {
         return "fore/cart";
     }
 
+    /**
+     * @return 结算页面
+     */
+    @GetMapping(value="/buy")
+    public String buy(){
+        return "fore/buy";
+    }
+
 }

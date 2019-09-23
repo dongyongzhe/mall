@@ -109,4 +109,21 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartMapper.getByProductId(uid, pid);
         cartMapper.deleteOne(cart);
     }
+
+    /**
+     * @param uid 用户Id
+     * @param pid 商品Id
+     * @return 查询到的购物车对象
+     */
+    @Override
+    public CartVo getOne(int uid, int pid) {
+        Cart cart = cartMapper.getOne(uid, pid);
+        int number = cart.getNumber();
+        Product product = productMapper.getById(pid);
+        ProductVo productVo = productService.getProductVo(product);
+        CartVo cartVo = new CartVo();
+        cartVo.setProductVo(productVo);
+        cartVo.setNumber(number);
+        return cartVo;
+    }
 }
