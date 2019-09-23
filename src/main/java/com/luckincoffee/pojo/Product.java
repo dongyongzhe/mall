@@ -8,21 +8,57 @@ import java.sql.Date;
  * @Description: 商品实体类
  */
 public class Product {
+    /**
+     * 商品Id
+     */
     private int id;
+    /**
+     * 商品名称
+     */
     private String name;
+    /**
+     * 商品标题
+     */
     private String title;
+    /**
+     * 商品详情
+     */
     private String productDesc;
+    /**
+     * 商品作者
+     */
     private String author;
+    /**
+     * 商品出版社
+     */
     private String publisher;
+    /**
+     * 出版年限
+     */
     private Date years;
+    /**
+     * 原件
+     */
     private float originalPrice;
+    /**
+     * 折扣价
+     */
     private float promotePrice;
+    /**
+     * 库存
+     */
     private int stock;
+    /**
+     * 商品对应的分类Id
+     */
     private int categoryId;
     /**
      * 是否为推荐图书   0：不是,1：是
      */
     private Byte recommend;
+    /**
+     * 商品状态（是否下架）
+     */
     private Byte status;
 
 

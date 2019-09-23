@@ -6,10 +6,26 @@ package com.luckincoffee.pojo;
  * @Description: 订单项实体类
  */
 public class OrderItem {
+    /**
+     * 订单项Id
+     */
     private int id;
-    private Product product;
-    private User user;
-    private Order order;
+    /**
+     * 商品Id
+     */
+    private int productId;
+    /**
+     * 订单Id
+     */
+    private int orderId;
+    /**
+     * 用户Id
+     */
+    private int userId;
+
+    /**
+     * 商品数量
+     */
     private int number;
 
     public int getId() {
@@ -20,28 +36,28 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public User getUser() {
-        return user;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
-    public Order getOrder() {
-        return order;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getNumber() {

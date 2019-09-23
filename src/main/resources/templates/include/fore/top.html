@@ -7,7 +7,7 @@
     <span>hi~ 欢迎来到墨墨书城</span>
 
     <span th:if="${null!=session.user}">
-		<a href="login" th:text="${session.user.name}"></a>
+		<a href="self" th:text="${session.user.name}"></a>
 		<a href="forelogout" >退出</a>
 	</span>
 

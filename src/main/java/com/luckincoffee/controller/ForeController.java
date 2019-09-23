@@ -1,20 +1,20 @@
 package com.luckincoffee.controller;
 
+import com.luckincoffee.enumcase.OrderStatusEnum;
 import com.luckincoffee.pojo.*;
 import com.luckincoffee.service.*;
 import com.luckincoffee.util.Result;
 import com.luckincoffee.vo.CartVo;
 import com.luckincoffee.vo.CategoryVo;
 import com.luckincoffee.vo.ProductVo;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Author: dyz
@@ -31,6 +31,12 @@ public class ForeController {
     private ProductService productService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderItemService orderItemService;
+    @Autowired
+    private AddressService addressService;
 
     /**
      * 首页
@@ -147,7 +153,7 @@ public class ForeController {
             cartService.addCart(pid,num,user);
             return Result.success("加入成功!");
         }
-        else if(null==cartCount&&(num+cartCount)<=stock){
+        else if(null==cartCount||(num+cartCount)<=stock){
             cartService.addCart(pid,num,user);
             return Result.success("加入成功!");
         }
@@ -228,9 +234,71 @@ public class ForeController {
         return Result.success(cartVos);
     }
 
-    @PostMapping("/forecreateorder")
-    public Result createOrder(HttpSession session){
-        return null;
+
+    /**
+     * 新建订单
+     * @param address 地址
+     * @param message 留言
+     * @param session 存储的用户对象和选中的购物车
+     * @return 结果
+     */
+    @PostMapping("forecreateOrder")
+    public Object createOrder(@RequestBody Address address,String message,HttpSession session){
+        User user =(User)  session.getAttribute("user");
+        if(null==user) {
+            return Result.fail("未登录");
+        }
+        //当前时间加4位随机数生成订单编号
+        String setOrderNumber = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);
+        Order order = new Order();
+        order.setOrderNumber(setOrderNumber);
+        order.setCreateDate(new Date());
+        order.setUserId(user.getId());
+        order.setUserMessage(message);
+        //设置订单状态为未支付
+        order.setStatus(OrderStatusEnum.WAITPAY.getStatus());
+        List<CartVo> cartVos= (List<CartVo>) session.getAttribute("carts");
+        List<OrderItem> orderItems  = new ArrayList<>();
+        for (CartVo cartVo : cartVos) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setNumber(cartVo.getNumber());
+            orderItem.setUserId(user.getId());
+            orderItems.add(orderItem);
+        }
+        orderService.add(order,orderItems);
+        address.setUserId(user.getId());
+        int oid=order.getId();
+        address.setOrderId(oid);
+        addressService.add(address);
+        for (OrderItem orderItem : orderItems) {
+            //删除已经生成订单的购物车
+            cartService.delete(user.getId(),orderItem.getProductId());
+        }
+        return Result.success(oid);
+    }
+    @GetMapping("forepayed")
+    public Result payed(int oid) {
+        Order order = orderService.getByOrderId(oid);
+        order.setStatus(OrderStatusEnum.WAITDELIVERY.getStatus());
+        order.setPayDate(new Date());
+        orderService.update(order);
+        return Result.success(order);
+    }
+
+    /**
+     * 查看订单详情
+     * @param session 存储的用户对象
+     * @return 查询到的订单
+     */
+    @GetMapping("forebought")
+    public Result bought(HttpSession session) {
+        User user =(User)session.getAttribute("user");
+        if(null==user) {
+            return Result.fail("未登录");
+        }else {
+            List<Order> os = orderService.listOrderNotD(user);
+            return Result.success(os);
+        }
     }
 
 }

@@ -328,9 +328,7 @@ img.endpng {
 
 div.footer {
 	margin: 0px 0px;
-	border-top-style: solid;
-	border-top-width: 1px;
-	border-top-color: #e7e7e7;
+	width: 100%;
 }
 
 div.footer_ensure {

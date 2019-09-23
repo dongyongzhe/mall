@@ -5,11 +5,11 @@
             <a :href="'category?cid='+c.category.id" class="categoryTitle" >{{c.category.name}}</a>
             <br>
             <div class="productItem"  v-for="p,index in c.productVos" v-if="index<5" >
-                <!--<a :href="'product?pid='+p.id">-->
-                    <!--<img width="100px" :src="'img/productSingle_middle/'+p.firstProductImage.id+'.jpg'">-->
-                <!--</a>-->
+                <a :href="'product?pid='+p.product.id">
+                    <img width="100px" :src="'https://img3.doubanio.com/view/subject/l/public/s29063065.jpg'">
+                </a>
 
-                <a class="productItemDescLink" href="'product?pid='+p.product.id">
+                <a class="productItemDescLink" :href="'product?pid='+p.product.id">
 									<span class="productItemDesc">[推荐]
 									{{p.product.title | subStringFilter(0,20)}}
 									</span>

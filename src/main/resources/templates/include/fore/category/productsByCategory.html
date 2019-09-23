@@ -1,5 +1,6 @@
 <div th:fragment="html">
 	<div class="categoryProducts">
+		<h3>{{categoryName}}</h3>
 			<div v-for="p in productVos"  class="productUnit" :price="p.product.promotePrice">
 
 				<div class="productUnitFrame">

@@ -53,6 +53,11 @@ public class ForePageController {
         return "fore/login";
     }
 
+    @GetMapping(value = "/self")
+    public String self(){
+        return "fore/self";
+    }
+
     /**
      * 将user对象从session作用域中删除
      * @param session 保存在session作用域中的user对象
@@ -94,6 +99,31 @@ public class ForePageController {
     @GetMapping(value="/buy")
     public String buy(){
         return "fore/buy";
+    }
+
+    /**
+     * @return 支付宝支付页面
+     */
+    @GetMapping(value="/alipay")
+    public String alipay(){
+        return "fore/alipay";
+    }
+
+
+    /**
+     * @return 已支付页面
+     */
+    @GetMapping(value="/payed")
+    public String payed(){
+        return "fore/payed";
+    }
+
+    /**
+     * @return 订单页面
+     */
+    @GetMapping(value="/bought")
+    public String bought(){
+        return "fore/bought";
     }
 
 }

@@ -1,5 +1,7 @@
 package com.luckincoffee.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class Order {
     /**
      * 地址Id
      */
-    private byte adressId;
+    private int addressId;
     /**
      * 用户备注信息
      */
@@ -50,7 +52,7 @@ public class Order {
     /**
      * 订单状态
      */
-    private Byte status;
+    private String status;
     /**
      * 用户Id
      */
@@ -61,15 +63,6 @@ public class Order {
      */
     private Date createDate;
 
-    /**
-     * 订单项对应的订单项集合
-     */
-    private List<OrderItem> orderItem;
-
-    /**
-     * 订单对应的收货地址
-     */
-    private Address address;
 
     public int getId() {
         return id;
@@ -87,12 +80,12 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public Byte getAdressId() {
-        return adressId;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setAdressId(byte adressId) {
-        this.adressId = adressId;
+    public void setAddressId(int adressId) {
+        this.addressId = adressId;
     }
 
     public String getUserMessage() {
@@ -119,6 +112,7 @@ public class Order {
         this.totalNumber = totalNumber;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getPayDate() {
         return payDate;
     }
@@ -135,6 +129,7 @@ public class Order {
         this.payMode = payMode;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getDeliveryDate() {
         return deliveryDate;
     }
@@ -151,11 +146,12 @@ public class Order {
         this.confirmDate = confirmDate;
     }
 
-    public Byte getStatus() {
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -167,6 +163,7 @@ public class Order {
         this.userId = userId;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getCreateDate() {
         return createDate;
     }
@@ -175,20 +172,5 @@ public class Order {
         this.createDate = createDate;
     }
 
-    public List<OrderItem> getOrderItem() {
-        return orderItem;
-    }
-
-    public void setOrderItem(List<OrderItem> orderItem) {
-        this.orderItem = orderItem;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
 }

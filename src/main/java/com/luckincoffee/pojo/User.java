@@ -6,14 +6,41 @@ package com.luckincoffee.pojo;
  * @Date: 2019/9/11 9:10
  */
 public class User {
+    /**
+     * 用户ID
+     */
     private int id;
+    /**
+     * 用户姓名
+     */
     private String name;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 盐
+     */
     private String salt;
+    /**
+     * 性别
+     */
     private byte sex;
+    /**
+     * 手机号
+     */
     private String phone;
+    /**
+     * 头像地址
+     */
     private String avator;
+    /**
+     * 积分
+     */
     private int score;
+    /**
+     * 状态（账户是否被冻结）
+     */
     private byte status;
 
     public String getName() {

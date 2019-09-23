@@ -1,6 +1,7 @@
 package com.luckincoffee.service;
 
 import com.luckincoffee.pojo.Order;
+import com.luckincoffee.pojo.OrderItem;
 import com.luckincoffee.pojo.Product;
 
 
@@ -10,11 +11,6 @@ import com.luckincoffee.pojo.Product;
  * @Description: 订单项业务逻辑类
  */
 public interface OrderItemService {
-    /**
-     * 根据订单Id设置订单属性
-     * @param order 订单Id
-     */
-    void setOrderProperty(Order order);
 
     /**
      * 获取某商品的销量
@@ -22,5 +18,11 @@ public interface OrderItemService {
      * @return 商品销量
      */
     int getSaleCount(Product product);
+
+    /**
+     * 添加订单项
+     * @param orderItem 订单项对象
+     */
+    void add(OrderItem orderItem);
 
 }

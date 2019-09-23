@@ -37,7 +37,7 @@ public interface UserMapper {
     /**
      * 根据姓名查找用户对象
      */
-    @Select("SELECT * FROM t_member WHERE name=#{name}")
+    @Select("SELECT * FROM t_user WHERE name=#{name}")
     User findByName(String name);
 
     /**

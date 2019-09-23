@@ -1,10 +1,10 @@
 package com.luckincoffee.service.impl;
 
 import com.luckincoffee.mapper.OrderItemMapper;
-import com.luckincoffee.pojo.Order;
 import com.luckincoffee.pojo.OrderItem;
 import com.luckincoffee.pojo.Product;
 import com.luckincoffee.service.OrderItemService;
+import com.luckincoffee.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,31 +19,29 @@ import java.util.List;
 public class OrderItemImpl implements OrderItemService {
     @Autowired
     private OrderItemMapper orderItemMapper;
-
-    @Override
-    public void setOrderProperty(Order order) {
-        List<OrderItem> orderItems=orderItemMapper.findByOrderId(order.getId());
-        order.setOrderItem(orderItems);
-        float total=0;
-        int totalNumber=0;
-        for (OrderItem orderItem : orderItems) {
-            total+=orderItem.getNumber()*orderItem.getProduct().getPromotePrice();
-            totalNumber+=orderItem.getNumber();
-        }
-        order.setTotal(total);
-        order.setTotalNumber(totalNumber);
-    }
+    @Autowired
+    private OrderService orderService;
 
     @Override
     public int getSaleCount(Product product) {
         List<OrderItem> orderItems=orderItemMapper.findByProductId(product.getId());
+
         int saleCount=0;
         for (OrderItem orderItem : orderItems) {
-            if(null!=orderItem.getOrder()&&null!=orderItem.getOrder().getPayDate()){
+            if(0<orderItems.size()&& null!=orderService.getByOrderId(orderItem.getOrderId()).getPayDate()){
                 //每次循环将已支付的订单的订单项的商品数量加上
                 saleCount+=orderItem.getNumber();
             }
         }
-        return 0;
+        return saleCount;
+    }
+
+    /**
+     * 添加订单项
+     * @param orderItem 订单项对象
+     */
+    @Override
+    public void add(OrderItem orderItem) {
+        orderItemMapper.add(orderItem);
     }
 }
