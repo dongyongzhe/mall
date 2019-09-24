@@ -3,6 +3,7 @@ package com.luckincoffee.service;
 import com.luckincoffee.pojo.Order;
 import com.luckincoffee.pojo.OrderItem;
 import com.luckincoffee.pojo.User;
+import com.luckincoffee.vo.OrderItemVo;
 
 import java.util.List;
 
@@ -37,5 +38,5 @@ public interface OrderService {
      * @param user 用户
      * @return 用户还未删除的订单
      */
-    List<Order> listOrderNotDelete(User user);
+    List<OrderItemVo> listOrderNotDelete(User user);
 }

@@ -6,7 +6,7 @@ import com.luckincoffee.pojo.OrderItem;
 import com.luckincoffee.pojo.User;
 import com.luckincoffee.service.OrderItemService;
 import com.luckincoffee.service.OrderService;
-import com.luckincoffee.vo.OrderVo;
+import com.luckincoffee.vo.OrderItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderVo> listOrderNotDelete(User user) {
+    public List<OrderItemVo> listOrderNotDelete(User user) {
         return null;
     }
 }
