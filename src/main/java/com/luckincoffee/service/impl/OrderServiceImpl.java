@@ -1,17 +1,20 @@
 package com.luckincoffee.service.impl;
 
+import com.luckincoffee.enumcase.OrderStatusEnum;
 import com.luckincoffee.mapper.OrderMapper;
-import com.luckincoffee.pojo.Order;
-import com.luckincoffee.pojo.OrderItem;
-import com.luckincoffee.pojo.User;
+import com.luckincoffee.pojo.*;
+import com.luckincoffee.service.AddressService;
 import com.luckincoffee.service.OrderItemService;
 import com.luckincoffee.service.OrderService;
-import com.luckincoffee.vo.OrderItemVo;
+import com.luckincoffee.service.ProductService;
+import com.luckincoffee.vo.OrderVo;
+import com.luckincoffee.vo.ProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +29,10 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private ProductService productService;
     /**
      * 添加订单
      * @param order 订单对象
@@ -65,8 +72,29 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.update(order);
     }
 
+    /**
+     * @param user 用户
+     * @return 未被删除的订单集合
+     */
     @Override
-    public List<OrderItemVo> listOrderNotDelete(User user) {
+    public List<OrderVo> listOrderNotDelete(User user) {
+        List<Order> orderbyUserIdAndInsteadStatus = orderMapper.findByUserIdAndInsteadStatus(user.getId(), OrderStatusEnum.DELETE.getStatus());
+        for (Order order : orderbyUserIdAndInsteadStatus) {
+            OrderVo orderVo = new OrderVo();
+            orderVo.setOrder(order);
+            List<OrderItem> orderItems = orderItemService.listByOrder(order);
+            for (OrderItem orderItem : orderItems) {
+                Product product = orderItemService.getProductByOrderItem(orderItem);
+                ProductVo productVo = productService.getProductVo(product);
+                List<ProductVo> productVos = new ArrayList<>();
+                productVos.add(productVo);
+                orderVo.setProductVos(productVos);
+            }
+            orderVo.setOrderItems(orderItems);
+            Address address = addressService.getAddressByOrder(order);
+            orderVo.setAddress(address);
+        }
         return null;
     }
+
 }

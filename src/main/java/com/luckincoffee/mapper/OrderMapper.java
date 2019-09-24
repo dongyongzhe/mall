@@ -41,6 +41,6 @@ public interface OrderMapper {
      * @param status 订单状态
      * @return 查询到的订单集合
      */
-    @Select("SELECT * FROM t_order WHERE user_id=#{uid} AND status=#{status}")
-    List<Order> findByUserIdAndStatus(@Param("uid") int uid,@Param("status") String status);
+    @Select("SELECT * FROM t_order WHERE user_id=#{uid} AND status!=#{status}")
+    List<Order> findByUserIdAndInsteadStatus(@Param("uid") int uid,@Param("status") String status);
 }

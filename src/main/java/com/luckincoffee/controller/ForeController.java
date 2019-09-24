@@ -6,6 +6,7 @@ import com.luckincoffee.service.*;
 import com.luckincoffee.util.Result;
 import com.luckincoffee.vo.CartVo;
 import com.luckincoffee.vo.CategoryVo;
+import com.luckincoffee.vo.OrderVo;
 import com.luckincoffee.vo.ProductVo;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,6 @@ public class ForeController {
     private CartService cartService;
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private OrderItemService orderItemService;
     @Autowired
     private AddressService addressService;
 
@@ -299,9 +298,8 @@ public class ForeController {
         if(null==user) {
             return Result.fail("未登录");
         }else {
-//            List<Order> os = orderService.listOrderNotDelete(user);
-            //return Result.success(os);
-            return null;
+            List<OrderVo> os = orderService.listOrderNotDelete(user);
+            return Result.success(os);
         }
     }
 

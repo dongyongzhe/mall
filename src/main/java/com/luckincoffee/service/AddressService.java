@@ -1,6 +1,7 @@
 package com.luckincoffee.service;
 
 import com.luckincoffee.pojo.Address;
+import com.luckincoffee.pojo.Order;
 
 /**
  * @Author: yongzhe.dong@luckincoffee.com
@@ -15,8 +16,9 @@ public interface AddressService {
     void add(Address address);
 
     /**
-     * @param uid 用户Id
+     * 根据订单获取地址
+     * @param order 订单对象
      * @return 查询到的地址
      */
-    Address getAddress(int uid);
+    Address getAddressByOrder(Order order);
 }

@@ -1,10 +1,13 @@
 package com.luckincoffee.service.impl;
 
 import com.luckincoffee.mapper.OrderItemMapper;
+import com.luckincoffee.mapper.OrderMapper;
+import com.luckincoffee.pojo.Order;
 import com.luckincoffee.pojo.OrderItem;
 import com.luckincoffee.pojo.Product;
 import com.luckincoffee.service.OrderItemService;
 import com.luckincoffee.service.OrderService;
+import com.luckincoffee.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,8 @@ public class OrderItemImpl implements OrderItemService {
     private OrderItemMapper orderItemMapper;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ProductService productService;
 
     @Override
     public int getSaleCount(Product product) {
@@ -43,5 +48,32 @@ public class OrderItemImpl implements OrderItemService {
     @Override
     public void add(OrderItem orderItem) {
         orderItemMapper.add(orderItem);
+    }
+
+    /**
+     * 根据商品查询订单项集合
+     * @param product 商品
+     * @return 订单项集合
+     */
+    @Override
+    public List<OrderItem> listByProduct(Product product) {
+        return orderItemMapper.findByProductId(product.getId());
+    }
+
+    /**
+     * 根据订单查询订单项集合
+     * @param order 订单
+     * @return 订单项集合
+     */
+    @Override
+    public List<OrderItem> listByOrder(Order order) {
+        return orderItemMapper.findByOrderId(order.getId());
+    }
+
+    @Override
+    public Product getProductByOrderItem(OrderItem orderItem) {
+        int productId = orderItem.getProductId();
+        Product product = productService.getById(productId);
+        return product;
     }
 }
