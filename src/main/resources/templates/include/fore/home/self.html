@@ -1,6 +1,85 @@
 <div th:fragment="html">
-    <h1>aaaaa</h1>
+    <script>
+        $(function(){
+            var pid = getUrlParms("oiid");
+            var total=getUrlParms("total");
+            var data4Vue = {
+                uri:'foreself',
+                user:null
+            };
+            //ViewModel
+            var vue = new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+                    this.load();
+                },
+                methods: {
+                    load:function(){
+                        var url =  this.uri;
+                        axios.get(url).then(function(response) {
+                            var result = response.data;
+                            vue.user = result.data;
+                            vue.$nextTick(function(){
+                                linkDefaultActions();
+                            })
+                        });
+                    },
+                    submitSelfMessage:function(){
+                        var url =  "foreupdateself";
+                        alert("修改成功");
+                        axios.post(url,this.user);
+                        location.href="/mall/home";
+                    }
+                }
+            });
 
+        })
+    </script>
+    <div class="selfPageDiv">
+        <div class="self">
+            <div class="selfTip">个人账户信息</div>
+            <div>
+                <table class="selfTable">
+                    <tr>
+                        <td class="firstColumn">会员名称<span class="redStar">*</span></td>
+
+                        <td>{{user.name}}</td>
+                    </tr>
+                    <tr>
+                        <td >性别</td>
+                        <td>
+                            <label for="man" class="radio">
+                                <span class="radio-bg"></span>
+                                <input type="radio" name="sex" id="man" value="男" checked="checked" v-model="user.sex"/> 男
+                                <span class="radio-on"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <label for="woman" class="radio">
+                                <span class="radio-bg"></span>
+                                <input type="radio" name="sex" id="woman" value="女" v-model="user.sex"/> 女
+                                <span class="radio-on"></span>
+                            </label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>手机号码 <span class="redStar">*</span></td>
+                        <td><input name="phone" type="text" v-model="user.phone"></td>
+                    </tr>
+                    <tr>
+                        <td>积分<span class="redStar">*</span></td>
+                        <td>{{user.score}}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <div class="subselfDiv">
+            <button type="submit" class="submitSelfButton" @click="submitSelfMessage">确认修改</button>
+        </div>
+    </div>
 
 
 

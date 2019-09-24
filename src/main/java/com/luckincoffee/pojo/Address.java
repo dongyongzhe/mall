@@ -16,11 +16,6 @@ public class Address {
     private int userId;
 
     /**
-     * 订单Id
-     */
-    private int orderId;
-
-    /**
      * 地址详情
      */
     private String detail;
@@ -53,14 +48,6 @@ public class Address {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
 
     public String getDetail() {
         return detail;

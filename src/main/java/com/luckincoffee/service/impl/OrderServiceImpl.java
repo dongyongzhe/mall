@@ -3,8 +3,10 @@ package com.luckincoffee.service.impl;
 import com.luckincoffee.mapper.OrderMapper;
 import com.luckincoffee.pojo.Order;
 import com.luckincoffee.pojo.OrderItem;
+import com.luckincoffee.pojo.User;
 import com.luckincoffee.service.OrderItemService;
 import com.luckincoffee.service.OrderService;
+import com.luckincoffee.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -61,5 +63,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void update(Order order) {
         orderMapper.update(order);
+    }
+
+    @Override
+    public List<OrderVo> listOrderNotDelete(User user) {
+        return null;
     }
 }

@@ -12,12 +12,6 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
-    /**
-     * 根据唯一主键id进行删除操作
-     * @param id 用户ID
-     * @return 改变的行数
-     */
-    int deleteByPrimaryKey(Integer id);
 
     /**
      * 插入新的用户
@@ -30,19 +24,34 @@ public interface UserMapper {
 
     /**
      * id递减的顺序得到所有的会员集合
+     * @return 用户集合
      */
     @Select("SELECT * FROM t_user ORDER BY id DESC")
     List<User> list();
 
+
     /**
      * 根据姓名查找用户对象
+     * @param name 用户名
+     * @return 查询到的用户对象
      */
     @Select("SELECT * FROM t_user WHERE name=#{name}")
     User findByName(String name);
 
+
     /**
      * 根据用户名和密码查找用户，和登录页面传来的数据一一对应
+     * @param name 用户名
+     * @param password 密码
+     * @return 查询到的用户对象
      */
     @Select("SELECT * FROM t_user WHERE name=#{name} AND password=#{password}")
     User findByUsernameAndPassword(@Param("name") String name, @Param("password") String password);
+
+    /**
+     * 更新用户
+     * @param user 用户对象
+     */
+    @Update("UPDATE t_user SET name=#{name},password=#{password},salt=#{salt},sex=#{sex},phone=#{phone},avatar=#{avatar},score=#{score},role=#{role},status=#{status} WHERE id=#{id}")
+    void update(User user);
 }

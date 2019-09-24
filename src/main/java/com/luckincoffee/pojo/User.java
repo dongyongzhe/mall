@@ -25,7 +25,7 @@ public class User {
     /**
      * 性别
      */
-    private byte sex;
+    private String sex;
     /**
      * 手机号
      */
@@ -33,11 +33,16 @@ public class User {
     /**
      * 头像地址
      */
-    private String avator;
+    private String avatar;
     /**
      * 积分
      */
     private int score;
+
+    /**
+     * 角色
+     */
+    private Byte role;
     /**
      * 状态（账户是否被冻结）
      */
@@ -59,11 +64,11 @@ public class User {
         this.salt = salt;
     }
 
-    public byte getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -75,12 +80,12 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAvator() {
-        return avator;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAvator(String avator) {
-        this.avator = avator;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getScore() {
@@ -122,6 +127,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Byte getRole() {
+        return role;
+    }
+
+    public void setRole(Byte role) {
+        this.role = role;
+    }
+
 
     @Override
     public String toString() {

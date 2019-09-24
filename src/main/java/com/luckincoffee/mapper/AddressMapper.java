@@ -15,6 +15,6 @@ public interface AddressMapper {
      * 添加地址对象
      * @param address 地址对象
      */
-    @Insert("INSERT INTO t_address(id,user_id,order_id,detail,post,receiver,mobile) VALUES(null,#{userId},#{orderId},#{detail},#{post},#{receiver},#{mobile})")
+    @Insert("INSERT INTO t_address(id,user_id,detail,post,receiver,mobile) VALUES(null,#{userId},#{detail},#{post},#{receiver},#{mobile})")
     void add(Address address);
 }

@@ -18,7 +18,7 @@
 	            },        
 	            methods: {     	
 	            	load:function(){
-	                    var url =  this.uri+"?oid="+oid;
+	                    var url =  this.uri+"?oid="+oid+"&total="+total;
 	                    axios.get(url).then(function(response) {
 	                    	vue.order = response.data.data;
 	                    });
@@ -40,9 +40,9 @@
 			<ul>
 				<li>收货地址：{{order.address}} {{order.receiver}} {{order.mobile }}</li>
 				<li>实付款：<span class="payedInfoPrice">
-					{{total|formatMoney}} 
+					{{total|formatMoney}}
 				</li>
-				<li>预计08月08日送达	</li>
+				<li>请您耐心等待收货哟</li>
 			</ul>
 					
 			<div class="paedCheckLinkDiv">

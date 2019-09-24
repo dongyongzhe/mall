@@ -1068,6 +1068,10 @@ span.userInfoGrayPart {
 	color: #999999;
 }
 
+div.selfPageDiv {
+	margin: 20px auto;
+	max-width: 1013px;
+}
 
 div.buyPageDiv {
 	margin: 20px auto;
@@ -1125,6 +1129,19 @@ div.address {
 	text-align: left;
 }
 
+div.self {
+	margin: 20px 5px;
+	text-align: center;
+}
+
+div.selfTip {
+	color: #333333;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
 div.addressTip, div.productListTip {
 	color: #333333;
 	font-size: 16px;
@@ -1139,7 +1156,7 @@ table.addressTable {
 }
 
 table.addressTable td.firstColumn {
-	width: 100px;
+	width: 200px;
 }
 
 table.addressTable td {
@@ -1150,6 +1167,27 @@ table.addressTable td {
 	text-align: left;
 	height: 30px;
 	font-size:12px;
+}
+
+table.selfTable {
+	margin: 20px 20px;
+	width: 600px;
+}
+
+table.selfTable td.firstColumn {
+	width: 200px;
+}
+
+table.selfTable td {
+	color: #333333;
+	margin: 10px 20px;
+	text-align: right;
+	vertical-align: top;
+	padding-right: 5px;
+	text-align: left;
+	height: 66px;
+	font-size:20px;
+	font-weigh:bold;
 }
 
 span.redStar {
@@ -1344,6 +1382,11 @@ div.submitOrderDiv {
 	margin: 20px 0px;
 }
 
+div.subselfDiv {
+	height: 40px;
+	margin: 20px 0px;
+}
+
 button.submitOrderButton {
 	border: 1px solid #C40000;
 	background-color: #C40000;
@@ -1353,6 +1396,52 @@ button.submitOrderButton {
 	font-weight: 700;
 	color: white;
 	float: right;
+}
+
+button.submitSelfButton {
+	border: 1px solid #118ADB;
+	background-color: #118ADB;
+	text-align: center;
+	line-height: 40px;
+	font-size: 14px;
+	font-weight: 700;
+	color: white;
+	float: right;
+}
+
+.radio{
+	display: inline-block;
+	position: relative;
+	line-height: 11px;
+	cursor: pointer;
+}
+.radio input{
+	display: none;
+}
+.radio .radio-bg{
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	background-color: #ffffff;
+	border: 1px solid #75777c;
+	border-radius: 100%;
+	vertical-align: top;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+.radio .radio-on{
+	display: none;
+}
+.radio input:checked + span.radio-on{
+	width: 14px;
+	height: 14px;
+	position: absolute;
+	border-radius: 100%;
+	background-color: black;
+	top: 3px;
+	left: 3px;
+	transition: all 0.2s ease;
+	display: inline-block;
 }
 
 div.aliPayPageLogo {

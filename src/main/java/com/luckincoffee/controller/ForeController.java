@@ -243,8 +243,8 @@ public class ForeController {
      * @return 结果
      */
     @PostMapping("forecreateOrder")
-    public Object createOrder(@RequestBody Address address,String message,HttpSession session){
-        User user =(User)  session.getAttribute("user");
+    public Result createOrder(@RequestBody Address address,String message,HttpSession session){
+        User user =(User)session.getAttribute("user");
         if(null==user) {
             return Result.fail("未登录");
         }
@@ -263,24 +263,27 @@ public class ForeController {
             OrderItem orderItem = new OrderItem();
             orderItem.setNumber(cartVo.getNumber());
             orderItem.setUserId(user.getId());
+            orderItem.setProductId(cartVo.getProductVo().getProduct().getId());
             orderItems.add(orderItem);
         }
-        orderService.add(order,orderItems);
         address.setUserId(user.getId());
-        int oid=order.getId();
-        address.setOrderId(oid);
         addressService.add(address);
+        //设置订单地址编号
+        order.setAddressId(address.getId());
+        orderService.add(order,orderItems);
         for (OrderItem orderItem : orderItems) {
             //删除已经生成订单的购物车
             cartService.delete(user.getId(),orderItem.getProductId());
         }
+        int oid=order.getId();
         return Result.success(oid);
     }
     @GetMapping("forepayed")
-    public Result payed(int oid) {
+    public Result payed(int oid,String total) {
         Order order = orderService.getByOrderId(oid);
         order.setStatus(OrderStatusEnum.WAITDELIVERY.getStatus());
         order.setPayDate(new Date());
+        order.setTotal(Float.parseFloat(total));
         orderService.update(order);
         return Result.success(order);
     }
@@ -296,9 +299,40 @@ public class ForeController {
         if(null==user) {
             return Result.fail("未登录");
         }else {
-            List<Order> os = orderService.listOrderNotD(user);
-            return Result.success(os);
+//            List<Order> os = orderService.listOrderNotDelete(user);
+            //return Result.success(os);
+            return null;
         }
     }
+
+    @GetMapping("/foreself")
+    public Result self(HttpSession session){
+        User user =(User)session.getAttribute("user");
+        if(null==user) {
+            return Result.fail("未登录");
+        }else{
+            User user1 = userService.getUser(user.getId());
+            return Result.success(user);
+
+        }
+    }
+
+    /**
+     * 用户修改
+     * @param session session中存储的用户对象
+     * @param user 前台提交的用户
+     * @return 结果
+     */
+    @PostMapping("/foreupdateself")
+    public Result updateSelf(HttpSession session,@RequestBody User user){
+        User user1 =(User)session.getAttribute("user");
+        if(null==user1) {
+            return Result.fail("未登录");
+        }else{
+            userService.updateUser(user);
+            return Result.success();
+        }
+    }
+
 
 }
