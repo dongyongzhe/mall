@@ -1,0 +1,28 @@
+﻿<div class th:fragment="html">
+	<div class="searchProducts">
+		<div class="productUnit" price="${p.product.promotePrice}" v-for="p in productVos" >
+			<a :href="'product?pid='+p.product.id">
+				<img class="productImage">我是一张图片
+			</a>
+			<span class="productPrice">
+				{{p.product.promotePrice|formatMoneyFilter}}
+			</span>
+			<a class="productLink" :href="'product?pid='+p.product.id">
+				{{p.product.name|subStringFilter(0,50)}}
+			</a>
+
+			<a  class="tmallLink" :href="'product?pid='+p.product.id">墨墨书城</a>
+
+			<div class="show1 productInfo">
+				<span class="monthDeal ">月成交 <span class="productDealNumber">{{p.saleCount}}笔</span></span>
+				<span class="productReview">评价<span class="productReviewNumber">{{p.reviewCount}}</span></span>
+			</div>
+
+		</div>
+
+		<div v-if="0 == productVos.length" class="noMatch">没有满足条件的产品</div>
+
+		<div style="clear:both"></div>
+	</div>
+</div>
+	

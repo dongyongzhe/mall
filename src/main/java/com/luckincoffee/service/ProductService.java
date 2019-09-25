@@ -3,6 +3,8 @@ package com.luckincoffee.service;
 import com.luckincoffee.pojo.Product;
 import com.luckincoffee.vo.ProductVo;
 
+import java.util.List;
+
 /**
  * @Author: dyz
  * @Date: 2019/9/18 10:36
@@ -22,4 +24,13 @@ public interface ProductService {
      * @return 前台要展示商品ProductVo
      */
     ProductVo getProductVo(Product product);
+
+    /**
+     * 根据关键字进行分页查询
+     * @param keyword 关键字
+     * @param start 开始页数
+     * @param size 每页长度
+     * @return 查询到的商品结果
+     */
+    List<Product> search(String keyword, int start, int size);
 }

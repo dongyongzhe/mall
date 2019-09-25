@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class OrderVo {
     /**
-     * 订单项
-     */
-    private List<OrderItem> orderItems;
-    /**
      * 订单
      */
     private Order order;
@@ -37,14 +33,6 @@ public class OrderVo {
 
     public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
     }
 
     public Address getAddress() {

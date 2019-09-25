@@ -53,6 +53,19 @@ public class ForePageController {
         return "fore/login";
     }
 
+
+    /**
+     * @return 查询结果
+     */
+    @GetMapping(value="/search")
+    public String searchResult(){
+        return "fore/search";
+    }
+
+
+    /**
+     * @return 个人中心
+     */
     @GetMapping(value = "/self")
     public String self(){
         return "fore/self";
@@ -124,6 +137,22 @@ public class ForePageController {
     @GetMapping(value="/bought")
     public String bought(){
         return "fore/bought";
+    }
+
+    /**
+     * @return 确认收货页面
+     */
+    @GetMapping(value="/confirm")
+    public String confirm(){
+        return "fore/confirm";
+    }
+
+    /**
+     * @return 交易完成页面
+     */
+    @GetMapping(value="/orderConfirmed")
+    public String orderConfirmed(){
+        return "fore/orderConfirmed";
     }
 
 }

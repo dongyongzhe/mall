@@ -15,8 +15,8 @@
                 detailPictures:[],
                 // 评论
                 reviews:[],
-                showDetail:false,
-                showReview:true,
+                showDetail:true,
+                showReview:false,
                 user:{name:'', password:''}
             };
             //ViewModel
@@ -65,6 +65,6 @@
     <div class="productPageDiv">
         <div th:replace="include/fore/product/imgAndInfo::html" ></div>
         <div th:replace="include/fore/product/productReview::html" ></div>
-        <!--<div th:replace="include/fore/product/productDetail::html" ></div>-->
+        <div th:replace="include/fore/product/productDetail::html" ></div>
     </div>
 </div>

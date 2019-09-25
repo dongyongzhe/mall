@@ -73,13 +73,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     * 查询未被删除的订单集合
      * @param user 用户
      * @return 未被删除的订单集合
      */
     @Override
     public List<OrderVo> listOrderNotDelete(User user) {
-        List<Order> orderbyUserIdAndInsteadStatus = orderMapper.findByUserIdAndInsteadStatus(user.getId(), OrderStatusEnum.DELETE.getStatus());
-        for (Order order : orderbyUserIdAndInsteadStatus) {
+        List<Order> orderByUserIdAndInsteadStatus = orderMapper.findByUserIdAndInsteadStatus(user.getId(), OrderStatusEnum.DELETE.getStatus());
+        List<OrderVo> orderVos = new ArrayList<>();
+        for (Order order : orderByUserIdAndInsteadStatus) {
             OrderVo orderVo = new OrderVo();
             orderVo.setOrder(order);
             List<OrderItem> orderItems = orderItemService.listByOrder(order);
@@ -90,11 +92,11 @@ public class OrderServiceImpl implements OrderService {
                 productVos.add(productVo);
                 orderVo.setProductVos(productVos);
             }
-            orderVo.setOrderItems(orderItems);
             Address address = addressService.getAddressByOrder(order);
             orderVo.setAddress(address);
+            orderVos.add(orderVo);
         }
-        return null;
+        return orderVos;
     }
 
 }

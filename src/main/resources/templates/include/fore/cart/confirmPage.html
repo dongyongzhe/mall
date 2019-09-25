@@ -1,0 +1,19 @@
+<div th:fragment="html">
+	<script>
+		$(function() {
+            var oid = getUrlParms("oid");
+		    var vue=new Vue({
+                el: '#workingArea',
+				data:{
+                    oid:oid
+                }
+            });
+        })
+	</script>
+	<div class="confirmPayPageDiv">
+		<div class="confirmPayButtonDiv" v-model="oid">
+			<div class="confirmPayWarning">请收到货后，再确认收货！否则您可能钱货两空！</div>
+			<a :href="'orderConfirmed?oid='+oid"><button class="confirmPayButton">确认支付</button></a>
+		</div>
+	</div>
+</div>

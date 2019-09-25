@@ -61,7 +61,7 @@ public class Order {
     /**
      * 订单创建时间
      */
-    private Date createDate;
+    private Date createTime;
 
 
     public int getId() {
@@ -163,14 +163,32 @@ public class Order {
         this.userId = userId;
     }
 
+
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderNumber='" + orderNumber + '\'' +
+                ", addressId=" + addressId +
+                ", userMessage='" + userMessage + '\'' +
+                ", total=" + total +
+                ", totalNumber=" + totalNumber +
+                ", payDate=" + payDate +
+                ", payMode=" + payMode +
+                ", deliveryDate=" + deliveryDate +
+                ", confirmDate=" + confirmDate +
+                ", status='" + status + '\'' +
+                ", userId=" + userId +
+                ", createDate=" + createTime +
+                '}';
+    }
 }

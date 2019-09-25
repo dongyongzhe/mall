@@ -1,10 +1,10 @@
 <div class th:fragment="html">
 	<script>
 		$(function(){
-			var keyword = getUrlParms("keyword");
+			var keywords = getUrlParms("keywords");
 	        var data4Vue = {
 	        		uri:'foresearch',
-	        		products:[]
+	        		productVos:[]
 	        };
 	        //ViewModel
 	        var vue = new Vue({
@@ -15,9 +15,9 @@
 	            },        
 	            methods: {
 	            	load:function(){
-	                    var url =  this.uri+"?keyword="+keyword;
+	                    var url =  this.uri+"?keywords="+keywords;
 	                    axios.post(url).then(function(response) {
-	            	        vue.products = response.data;
+	            	        vue.productVos = response.data.data;
 	                        vue.$nextTick(function(){
 	        	            	linkDefaultActions();
 	                        })

@@ -10,6 +10,8 @@ import com.luckincoffee.vo.ProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * @Author: yongzhe.dong@luckincoffee.com
@@ -52,5 +54,18 @@ public class ProductServiceImpl implements ProductService {
         productVo.setSaleCount(orderItemMapper.getSaleCount(pid));
         productVo.setProduct(product);
         return productVo;
+    }
+
+    /**
+     * 模糊查询
+     * @param keywords 关键字
+     * @param start   开始页数
+     * @param size    每页长度
+     * @return 查询到的商品结果集合
+     */
+    @Override
+    public List<Product> search(String keywords, int start, int size) {
+        List<Product> products = productMapper.findByKeywords(keywords, start, size);
+        return products;
     }
 }

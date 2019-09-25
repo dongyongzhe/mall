@@ -1,11 +1,10 @@
 <div class th:fragment="html">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <a th:href="${application.contextPath}">
         <img id="logo" src="img/site/momoLogo.png" class="logo">
     </a>
     <form action="search" method="get" >
         <div class="searchDiv">
-            <input name="keyword" type="text" placeholder="Java编程思想">
+            <input name="keywords" type="text" placeholder="Java编程思想">
             <button  type="submit" class="searchButton">搜索</button>
         </div>
     </form>

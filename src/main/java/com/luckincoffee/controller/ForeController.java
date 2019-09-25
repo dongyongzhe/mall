@@ -1,5 +1,6 @@
 package com.luckincoffee.controller;
 
+import com.luckincoffee.ao.MessageAo;
 import com.luckincoffee.enumcase.OrderStatusEnum;
 import com.luckincoffee.pojo.*;
 import com.luckincoffee.service.*;
@@ -133,6 +134,29 @@ public class ForeController {
         }
     }
 
+
+    /**
+     * 搜索
+     * @param keywords 搜索关键字
+     * @return 返回结果
+     */
+    @PostMapping("foresearch")
+    public Result search( String keywords){
+        List<ProductVo> productVos = new ArrayList<>();
+        if(null==keywords) {
+            keywords = "";
+            return Result.success(productVos);
+        }else {
+            List<Product> products = productService.search(keywords, 0, 20);
+            for (Product product : products) {
+                ProductVo productVo = productService.getProductVo(product);
+                productVos.add(productVo);
+            }
+            return Result.success(productVos);
+        }
+    }
+
+
     /**
      * 添加购物车
      * @param pid 商品ID
@@ -236,24 +260,23 @@ public class ForeController {
 
     /**
      * 新建订单
-     * @param address 地址
-     * @param message 留言
+     * @param message 确认订单时填入的信息
      * @param session 存储的用户对象和选中的购物车
      * @return 结果
      */
     @PostMapping("forecreateOrder")
-    public Result createOrder(@RequestBody Address address,String message,HttpSession session){
+    public Result createOrder(@RequestBody MessageAo message, HttpSession session){
         User user =(User)session.getAttribute("user");
         if(null==user) {
             return Result.fail("未登录");
         }
         //当前时间加4位随机数生成订单编号
-        String setOrderNumber = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);
+        String orderNumber = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);
         Order order = new Order();
-        order.setOrderNumber(setOrderNumber);
-        order.setCreateDate(new Date());
+        order.setOrderNumber(orderNumber);
+        order.setCreateTime(new Date());
         order.setUserId(user.getId());
-        order.setUserMessage(message);
+        order.setUserMessage(message.getUserMessage());
         //设置订单状态为未支付
         order.setStatus(OrderStatusEnum.WAITPAY.getStatus());
         List<CartVo> cartVos= (List<CartVo>) session.getAttribute("carts");
@@ -265,18 +288,34 @@ public class ForeController {
             orderItem.setProductId(cartVo.getProductVo().getProduct().getId());
             orderItems.add(orderItem);
         }
+        Address address = new Address();
+        address.setDetail(message.getDetail());
+        address.setMobile(message.getMobile());
+        address.setPost(message.getPost());
+        address.setReceiver(message.getReceiver());
         address.setUserId(user.getId());
         addressService.add(address);
         //设置订单地址编号
         order.setAddressId(address.getId());
-        orderService.add(order,orderItems);
+        //订单中商品总数
+        int totalNumber=0;
         for (OrderItem orderItem : orderItems) {
+            totalNumber+=orderItem.getNumber();
             //删除已经生成订单的购物车
             cartService.delete(user.getId(),orderItem.getProductId());
         }
+        order.setTotalNumber(totalNumber);
+        orderService.add(order,orderItems);
         int oid=order.getId();
         return Result.success(oid);
     }
+
+    /**
+     * 将订单状态改为已支付
+     * @param oid 订单Id
+     * @param total 总价
+     * @return
+     */
     @GetMapping("forepayed")
     public Result payed(int oid,String total) {
         Order order = orderService.getByOrderId(oid);
@@ -298,8 +337,8 @@ public class ForeController {
         if(null==user) {
             return Result.fail("未登录");
         }else {
-            List<OrderVo> os = orderService.listOrderNotDelete(user);
-            return Result.success(os);
+            List<OrderVo> orderVos = orderService.listOrderNotDelete(user);
+            return Result.success(orderVos);
         }
     }
 
@@ -330,6 +369,34 @@ public class ForeController {
             userService.updateUser(user);
             return Result.success();
         }
+    }
+
+    /**
+     * 用户进行订单删除操作（不是真正的删除，只是将状态修改为“删除状态”）
+     * @param oid 订单Id
+     * @return 返回结果
+     */
+    @PutMapping("foredeleteOrder")
+    public Result deleteOrder(int oid){
+        Order order = orderService.getByOrderId(oid);
+        //将订单属性设置为"delete"
+        order.setStatus(OrderStatusEnum.DELETE.getStatus());
+        orderService.update(order);
+        return Result.success();
+    }
+
+    /**
+     * 将订单状态改为待评价
+     * @param oid 订单Id
+     * @return 返回结果
+     */
+    @GetMapping("foreorderConfirmed")
+    public Result confirmed(int oid) {
+        Order order = orderService.getByOrderId(oid);
+        order.setStatus(OrderStatusEnum.WAITREVIEW.getStatus());
+        order.setConfirmDate(new Date());
+        orderService.update(order);
+        return Result.success();
     }
 
 

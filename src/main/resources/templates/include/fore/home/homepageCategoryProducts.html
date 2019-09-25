@@ -1,6 +1,6 @@
 <div th:fragment="html">
     <div class="homepageCategoryProducts">
-        <div class="eachHomepageCategoryProducts" v-for="c in categories">
+        <div class="eachHomepageCategoryProducts" v-for="(c,index,key) in categories" :key="index">
             <div class="left-mark"></div>
             <a :href="'category?cid='+c.category.id" class="categoryTitle" >{{c.category.name}}</a>
             <br>

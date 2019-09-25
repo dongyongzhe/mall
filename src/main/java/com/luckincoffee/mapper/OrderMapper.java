@@ -17,7 +17,7 @@ public interface OrderMapper {
      * @param order 订单对象
      */
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("INSERT INTO t_order(id,orderNumber,addressId,total,totalNumber,payDate,pay_mode,deliveryDate,confirmDate,status,user_id) VALUES(NULL,#{orderNumber},#{addressId},#{total},#{totalNumber},#{payDate},#{payMode},#{deliveryDate},#{confirmDate},#{status},#{userId})")
+    @Insert("INSERT INTO t_order(id,orderNumber,addressId,userMessage,total,totalNumber,payDate,pay_mode,deliveryDate,confirmDate,status,user_id,create_time) VALUES(NULL,#{orderNumber},#{addressId},#{userMessage},#{total},#{totalNumber},#{payDate},#{payMode},#{deliveryDate},#{confirmDate},#{status},#{userId},#{createTime})")
     void add(Order order);
 
     /**
@@ -32,7 +32,7 @@ public interface OrderMapper {
      * 更新订单
      * @param order 订单
      */
-    @Update("UPDATE t_order SET payDate=#{payDate},status=#{status}")
+    @Update("UPDATE t_order SET payDate=#{payDate},status=#{status},total=#{total},totalNumber=#{totalNumber},deliveryDate=#{deliveryDate},confirmDate=#{confirmDate} WHERE id=#{id}")
     void update(Order order);
 
     /**

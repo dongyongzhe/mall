@@ -7,16 +7,16 @@
 		</div>
 
 		<div class="productParamterPart">
-			<div class="productParamter">产品参数：</div>
+			<div class="productParamter">图书详情：</div>
 			<div class="productParamterList">
-				<span >{{p.name}}: {{pv.value | subStringFilter(0,10)}} </span>
+				<span >书名: {{p.name | subStringFilter(0,10)}} </span>
 			</div>
 			<div style="clear:both"></div>
 		</div>
 
-		<div class="productDetailImagesPart">
-			<img v-for="pi in p.productDetailImages" :src="http://img56.ddimg.cn/99999990057257736.jpg">
-		</div>
+		<!--<div class="productDetailImagesPart">-->
+			<!--<img v-for="pi in p.productDetailImages" :src="http://img56.ddimg.cn/99999990057257736.jpg">-->
+		<!--</div>-->
 	</div>
 </div>
 

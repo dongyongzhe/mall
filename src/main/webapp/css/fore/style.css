@@ -244,15 +244,15 @@ img.catear {
 }
 
 img.logo {
-	position: absolute;
-	left: 0px;
-	top: 30px;
+	position:absolute;
+	left: 200px;
+	top: 66px;
 /* 	z-index:-1; */
 }
 
 div.homepageCategoryProducts {
 	background-color: #F5F5F5;
-	padding: 50px 10px 50px 10px;
+	padding: 20px 10px 50px 10px;
 	margin: 10px auto;
 	max-width: 1013px;
 }
@@ -266,7 +266,14 @@ div.left-mark {
 }
 
 span.categoryTitle {
-	font-size: 16px;
+	font-size: 20px;
+	margin-left: 30px;
+	color: #646464;
+	font-weight: bold;
+}
+
+a.categoryTitle {
+	font-size: 20px;
 	margin-left: 30px;
 	color: #646464;
 	font-weight: bold;
@@ -1832,6 +1839,7 @@ div.orderListItemPriceWithTransport {
 
 td.orderListItemProductRealPriceTD {
 	text-align: center;
+	vertical-align: middle
 }
 
 button.orderListItemConfirm {
@@ -1877,6 +1885,7 @@ span.orderListItemNumber {
 
 td.orderListItemNumberTD {
 	text-align: center;
+	vertical-align: middle
 }
 
 div.confirmPayPageDiv {
@@ -2277,7 +2286,7 @@ div.registerSuccessDiv {
 	border: 1px solid #DEF3E6;
 	font-size: 16px;
 	color: #3C3C3C;
-	padding: 20px 130px;
+	padding: 20px 500px;
 }
 
 div.categoryPageDiv {

@@ -3,6 +3,7 @@ package com.luckincoffee.mapper;
 import com.luckincoffee.pojo.Address;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -16,6 +17,7 @@ public interface AddressMapper {
      * 添加地址对象
      * @param address 地址对象
      */
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     @Insert("INSERT INTO t_address(id,user_id,detail,post,receiver,mobile) VALUES(null,#{userId},#{detail},#{post},#{receiver},#{mobile})")
     void add(Address address);
 
@@ -24,6 +26,7 @@ public interface AddressMapper {
      * @param id 地址Id
      * @return 查询到的地址
      */
-    @Select("SELECT * FORM t_address WHERE id=#{id}")
+    @Select("SELECT * FROM t_address WHERE id=#{id}")
     Address getAdderById(int id);
+
 }
